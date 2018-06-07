@@ -2,37 +2,50 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { AppComponent } from './app.component';
 
 import { SocialLoginModule } from "angularx-social-login";
 import { LoginOpt, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider} from "angularx-social-login";
-import { DemoComponent } from './demo/demo.component';
+import { LoginComponent } from './login/login.component';
 import { routing } from './app.routes';
+import { provideConfig } from './providerconfig'
 
-const googleLoginOptions: LoginOpt = {
-  scope: 'email',
-  hosted_domain: 'sourcepad.com',
-  fetch_basic_profile: false
-}
+// ADDED----
+import { ToastyModule } from 'ng2-toasty';
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 
-let config = new AuthServiceConfig([
+import {
+  HttpService,
+  CommonService,
+  LocalStorage,
+  ToasterService
+} from './services/util';
+
+import {
+  SessionService
+} from './services/api';
+
+const PROVIDERS = [
   {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("42075831752-9jf638265r2pirv7m31h141dnpf4hkas.apps.googleusercontent.com",googleLoginOptions)
-  }
-]);
-
-
-
-export function provideConfig() {
-  return config;
-}
+    provide: AuthServiceConfig,
+    useFactory: provideConfig
+  },
+  {
+    provide: GoogleLoginProvider,
+    useFactory: provideConfig
+  },
+  HttpService,
+  CommonService,
+  LocalStorage,
+  SessionService,
+  ToasterService
+]
 
 @NgModule({
   declarations: [
     AppComponent,
-    DemoComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -40,17 +53,12 @@ export function provideConfig() {
     HttpModule,
     SocialLoginModule,
     RouterModule,
+    ToastyModule.forRoot(),
+    SlimLoadingBarModule.forRoot(),
     routing
   ],
   providers: [
-    {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
-    },
-    {
-      provide: GoogleLoginProvider,
-      useFactory: provideConfig
-    },
+    PROVIDERS
   ],
   bootstrap: [AppComponent]
 })

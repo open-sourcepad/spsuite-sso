@@ -1,9 +1,9 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
-import { DemoComponent } from './demo/demo.component'
+import { LoginComponent } from './login/login.component';
 
 export const ROUTES: Routes = [
-  { path: 'demo', component: DemoComponent },
+  { path: '', component: LoginComponent },
   { path: '**', redirectTo: '/' },
 ];
 
