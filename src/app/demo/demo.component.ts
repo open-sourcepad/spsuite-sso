@@ -11,25 +11,21 @@ import { GoogleLoginProvider } from "angularx-social-login";
 export class DemoComponent implements OnInit {
 
   private user: SocialUser;
-  private loggedIn: boolean;
+  // private loggedIn: boolean;
 
   constructor(
-    private authService: AuthService,
-    private googleLog: GoogleLoginProvider
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
-    this.authService
-    debugger;
-    this.signInWithGoogle();
     this.authService.authState.subscribe((user) => {
+      debugger
       this.user = user;
-      this.loggedIn = (user != null);
     });
   }
-
+  
   signInWithGoogle(): void {
-    this.authService.signIn("42075831752-9jf638265r2pirv7m31h141dnpf4hkas.apps.googleusercontent.com");
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   } 
 
   signOut(): void {
