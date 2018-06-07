@@ -3,6 +3,8 @@ import { AuthService } from "angularx-social-login";
 import { SocialUser } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
 
+declare const gapi: any;
+
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
@@ -30,5 +32,7 @@ export class DemoComponent implements OnInit {
 
   signOut(): void {
     this.authService.signOut();
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.disconnect()
   }
 }
