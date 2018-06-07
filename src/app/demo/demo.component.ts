@@ -10,7 +10,7 @@ import { GoogleLoginProvider } from "angularx-social-login";
 })
 export class DemoComponent implements OnInit {
 
-  private user: SocialUser;
+  user: SocialUser;
   // private loggedIn: boolean;
 
   constructor(
@@ -18,12 +18,12 @@ export class DemoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.authService.authState.subscribe((user) => {
-      debugger
       this.user = user;
     });
   }
-  
+
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   } 
