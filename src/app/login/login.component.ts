@@ -71,14 +71,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
         if(user!=null){
           if(routeParams.do == "sign-out"){
             this.signOut(routeParams);
-          }else if(routeParams.do == "sign-in"){
+          }else{
             this.user = user;
             this.session.authenticateSsoToken({token:user.authToken}).subscribe(
               res => {
                 console.log("login is updated")
                 this.session.setSession(res.user);
-                debugger
-                window.location.href = `${routeParams.url}?sso=${res.user.sso_token}&email=${res.user.email}`
+
+                if (routeParams.url) {
+                  window.location.href = `${routeParams.url}?sso=${res.user.sso_token}&email=${res.user.email}`
+                }
               },
               err => {
               }
