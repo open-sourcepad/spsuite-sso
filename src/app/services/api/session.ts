@@ -9,12 +9,12 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class SessionService {
   private apiEndpoint = `${environment.api_url}/api`;
- 
+
   user:any = null;
   UserSource = new Subject<any>();
   // Observable user streams
   user$ = this.UserSource.asObservable();
- 
+
     constructor(
       public storage: LocalStorage,
       public commonService: CommonService,
@@ -45,7 +45,7 @@ export class SessionService {
     this.UserSource.next(null);
     // this.http.delete(this.apiEndpoint).subscribe();
   }
-  
+
   getCurrentUser(): any {
     return this.storage.getObject('currentUser');
   }

@@ -4,10 +4,10 @@
   height: 70px;
   position: absolute;
   width: 100%;
+  color: white;
 }
 
 .header .login {
-  color: white;
   cursor: pointer;
   display: inline-block;
 }
@@ -17,7 +17,6 @@
   margin: 3px 10px 0px 10px;
   padding: 7px 20px;
   background-color: #b5a95c;
-  color: white;
   border-radius: 7px;
   display: inline-block;
 }

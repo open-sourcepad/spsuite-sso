@@ -21,6 +21,7 @@ declare const gapi: any;
 export class LoginComponent implements OnInit, AfterViewInit {
 
   user: SocialUser;
+  currentUser: any;
   // private loggedIn: boolean;
 
   constructor(
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
+    this.currentUser = this.session.getCurrentUser()
   }
 
   ngAfterViewInit(){
@@ -48,7 +50,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.session.authenticateSsoToken({token:user.authToken}).subscribe(
               res => {
                 console.log("login is updated")
-                this.session.setSession(res.user);
+                this.session.setSession(this.currentUser = res.user);
 
                 if (routeParams.url) {
                   window.location.href = `${routeParams.url}?sso=${res.user.sso_token}&email=${res.user.email}`
@@ -64,7 +66,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
       if(routeParams.do != null){
         if(routeParams.do == "sign-out"){
-          this.processLogout(routeParams)
+          this.processLogout()
         }else if(routeParams.do == "sign-in"){
           this.processLogin(routeParams)
         }
@@ -95,12 +97,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
   }
 
-  processLogout(routeParams){
+  processLogout(){
+    this.signOut("")
     this.session.signout();
+    this.currentUser = this.session.getCurrentUser()
   }
 
   redirectUser(routeParams, user=null) {
-    debugger
     if(user!=null){
       window.location.href = `${routeParams.url}?sso=${user.sso_token}&email=${user.email}`
     }else{

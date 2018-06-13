@@ -1,10 +1,16 @@
 <div class="sso-container" style="">
   <div class="header">
-    <div class="login" (click)="signInWithGoogle()">Log In</div>
-    <div class="get-started">Get Started</div>
+    <div *ngIf="!currentUser">
+      <div class="login" (click)="signInWithGoogle()">Log In</div>
+      <div class="get-started">Get Started</div>
+    </div>
+    <div style="padding-top:12px" *ngIf="!!currentUser">
+      <span>Hi! {{currentUser.display_name}}</span>
+      <span style="float: right;cursor: pointer;" (click)="processLogout()">Logout</span>
+    </div>
   </div>
   <div class="sso-content">
-    <div class="text-container">
+    <div class="text-container" *ngIf="!currentUser">
       <div>
         <img src="assets/sp-logo.png" style="height: 150px; width: 150px;">
         <span class="suite-text">Suite</span>
@@ -14,6 +20,10 @@
         <span style="text-transform: uppercase;">Login Via Google</span>
         <span class="fa fa-google-plus"></span>
       </div>
+    </div>
+    <div class="text-container" *ngIf="!!currentUser">
+      <div class="suite-motto">Welcome Back!</div>
+      <div class="suite-motto">{{currentUser.name}}</div>
     </div>
 
     <div class="suite-rights">2018 SPSuite. All Rights Reserved</div>
