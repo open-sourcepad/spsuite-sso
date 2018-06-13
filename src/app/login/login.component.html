@@ -4,7 +4,7 @@
     <div class="get-started">Get Started</div>
   </div>
   <div class="sso-content">
-    <div class="text-container" hidden="true">
+    <div class="text-container" *ngIf="!showForm">
       <div>
         <img src="assets/sp-logo.png" style="height: 150px; width: 150px;">
         <span class="suite-text">Suite</span>
@@ -15,7 +15,7 @@
         <span class="fa fa-google-plus"></span>
       </div>
     </div>
-    <div>
+    <div *ngIf="showForm">
       <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" name="loginForm" novalidate="">
         <div >
           <!-- <label>Email</label> -->
@@ -31,9 +31,9 @@
           <input autocomplete="off" class="form-control"  formControlName="skype"  name="skype" placeholder="Skype" type="text">
           <input autocomplete="off" class="form-control"  formControlName="office_location"  name="office_location" placeholder="Office Location" type="text">
           
-          <input autocomplete="off" class="form-control"  formControlName="birthday"  name="start_date" placeholder="Start Date" type="date">
+          <input autocomplete="off" class="form-control"  formControlName="birthday"  [textMask]="{mask: birthdayMask}" name="start_date" placeholder="Start Date" type="text">
           <input autocomplete="off" class="form-control"  formControlName="age"  name="age" placeholder="Age" type="text">
-          <input autocomplete="off" class="form-control"  formControlName="start_date"  name="start_date" placeholder="Start Date" type="date">
+          <input autocomplete="off" class="form-control"  formControlName="start_date" [textMask]="{mask: birthdayMask}"  name="start_date" placeholder="Start Date" type="text">
 
           <input autocomplete="off" class="form-control"  formControlName="tin_number"  name="tin_number" placeholder="TIN No." type="text">
           <input autocomplete="off" class="form-control"  formControlName="sss_number"  name="sss_number" placeholder="SSS No." type="text">
@@ -42,6 +42,9 @@
           
           <input autocomplete="off" class="form-control"  formControlName="person_to_notify"  name="person_to_notify" placeholder="Person to Notify incase of Emergency" type="text">
           <input autocomplete="off" class="form-control"  formControlName="person_to_notify_mobile"  name="person_to_notify_mobile" placeholder="Mobile Number" type="text">
+          
+          <button  *ngIf="!isSubmitting" class="btn btn-block btn-success mt-lg" type="submit">Submit</button>
+          <button  *ngIf="isSubmitting" class="btn btn-block btn-success mt-lg" type="submit">Submitting</button>
           <!-- <span class="fa fa-envelope form-control-feedback text-muted"></span> -->
           <!-- <div class="text-danger" *ngIf="email.errors?.required && submitted">This field is required</div>
           <div class="text-danger" *ngIf="email.errors?.validateEmail && submitted">This field must be a valid email</div> -->

@@ -14,6 +14,7 @@ import { provideConfig } from './providerconfig'
 // ADDED----
 import { ToastyModule } from 'ng2-toasty';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import {
   HttpService,
@@ -23,7 +24,8 @@ import {
 } from './services/util';
 
 import {
-  SessionService
+  SessionService,
+  UserService
 } from './services/api';
 
 const PROVIDERS = [
@@ -39,6 +41,7 @@ const PROVIDERS = [
   CommonService,
   LocalStorage,
   SessionService,
+  UserService,
   ToasterService
 ]
 
@@ -56,6 +59,7 @@ const PROVIDERS = [
     RouterModule,
     ToastyModule.forRoot(),
     SlimLoadingBarModule.forRoot(),
+    TextMaskModule,
     routing
   ],
   providers: [
