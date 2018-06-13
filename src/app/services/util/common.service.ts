@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { _throw } from 'rxjs/observable/throw';
 
 
 @Injectable()
@@ -12,7 +12,7 @@ export class CommonService {
   }
 
   handleError (error: Response | any) {
-    return Observable.throw(error);
+    return _throw(error);
   }
 
 }

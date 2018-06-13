@@ -43,6 +43,7 @@ export class HttpService {
       let currentUser = this.storage.getObject('currentUser');
       headers.append('Content-Type', 'application/json');
       headers.append('AccessToken', currentUser.access_token);
+      headers.append('SsoToken', currentUser.sso_token);
       headers.append('UserId', currentUser.id);
     }
   }
@@ -54,7 +55,6 @@ export class HttpService {
     return this.http.get(url, {
       headers: headers
     }).pipe(
-      retry(3), // Retry up to 3 times before failing
       map(this.commonService.extractData),
       catchError(res => {
         return this.commonErrorHandler(res);
@@ -69,7 +69,6 @@ export class HttpService {
     return this.http.post(url, data, {
       headers: headers,
     }).pipe(
-      retry(3), // Retry up to 3 times before failing
       map(this.commonService.extractData),
       catchError(res => {
         return this.commonErrorHandler(res);
@@ -84,7 +83,6 @@ export class HttpService {
     return this.http.patch(url, data, {
       headers: headers
     }).pipe(
-      retry(3), // Retry up to 3 times before failing
       map(this.commonService.extractData),
       catchError(res => {
         return this.commonErrorHandler(res);
@@ -99,7 +97,6 @@ export class HttpService {
     return this.http.put(url, data, {
       headers: headers
     }).pipe(
-      retry(3), // Retry up to 3 times before failing
       map(this.commonService.extractData),
       catchError(res => {
         return this.commonErrorHandler(res);
@@ -114,7 +111,6 @@ export class HttpService {
     return this.http.delete(url, {
       headers: headers
     }).pipe(
-      retry(3), // Retry up to 3 times before failing
       map(this.commonService.extractData),
       catchError(res => {
         return this.commonErrorHandler(res);

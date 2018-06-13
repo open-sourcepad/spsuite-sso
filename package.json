@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "local": "ng serve --port 4200 --host sso.example.com",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

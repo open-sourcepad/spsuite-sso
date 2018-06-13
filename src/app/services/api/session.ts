@@ -25,12 +25,13 @@ export class SessionService {
     return this.http.post(`${this.apiEndpoint}`, payload , true);
   }
 
-  authenticateToken(payload: any){
+
+  authenticateSsoToken(payload: any){
     return this.http.post(`${this.apiEndpoint}/sso`, payload , true);
   }
 
   checkSession(): any {
-    return this.http.get(`${this.apiEndpoint}/show`);
+    return this.http.get(`${this.apiEndpoint}/sso/show`);
   }
 
   setSession(user: any): void {
