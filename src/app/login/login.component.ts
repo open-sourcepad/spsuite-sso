@@ -34,14 +34,39 @@ export class LoginComponent implements OnInit, AfterViewInit {
     // debugger
     // this.authService.signOut();
     this.activeRoute.queryParams.subscribe(routeParams => {
-      // do something with the query params
-      console.log("1")
-      this.processLogin(routeParams)
-    });
-  }
 
-  redirectUser(routeParams, user) {
-    window.location.href = `${routeParams.url}?sso=${user.sso_token}&email=${user.email}`
+      this.authService.authState.subscribe((user) => {
+        if(user!=null){
+          if(routeParams.do == "sign-out"){
+            this.signOut(routeParams);
+          }else if(routeParams.do == "sign-in"){
+            this.user = user;
+            this.session.authenticateSsoToken({token:user.authToken}).subscribe(
+              res => {
+                console.log("login is updated")
+                this.session.setSession(res.user);
+                debugger
+                window.location.href = `${routeParams.url}?sso=${res.user.sso_token}&email=${res.user.email}`
+              },
+              err => {
+              }
+            );
+          }
+        }
+       
+      });
+
+      if(routeParams.do != null){
+        if(routeParams.do == "sign-out"){
+          this.processLogout(routeParams)
+        }else if(routeParams.do == "sign-in"){
+          this.processLogin(routeParams)
+        }
+      }else{
+        // this.processLogin(routeParams)
+      }
+      
+    });
   }
 
   processLogin(routeParams){
@@ -61,36 +86,33 @@ export class LoginComponent implements OnInit, AfterViewInit {
           // }
        });
       }
-    } else{
-      this.authService.authState.subscribe((user) => {
-        if(user!=null){
-          this.user = user;
-
-          this.session.authenticateSsoToken({token:user.authToken}).subscribe(
-            res => {
-              console.log("login is updated")
-              this.session.setSession(res.user);
-              debugger
-              window.location.href = `${routeParams.url}?sso=${res.user.sso_token}&email=${res.user.email}`
-            },
-            err => {
-            }
-          );
-        }
-       
-      });
     }
   }
+
+  processLogout(routeParams){
+    this.session.signout();
+  }
+
+  redirectUser(routeParams, user=null) {
+    debugger
+    if(user!=null){
+      window.location.href = `${routeParams.url}?sso=${user.sso_token}&email=${user.email}`
+    }else{
+      window.location.href = `${routeParams.url}`
+    }
+  }
+
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   } 
 
-  signOut(): void {
+  signOut(routeParams): void {
     this.authService.signOut();
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.disconnect()
     this.session.clearSession();
     this.user = null;
+    this.redirectUser(routeParams);
   }
 }
