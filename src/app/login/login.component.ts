@@ -11,6 +11,10 @@ declare const gapi: any;
 
 @Component({
   selector: 'app-login',
+  host: {
+    '[style.height]': "'100%'",
+    '[style.display]': "'block'"
+  },
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -53,7 +57,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             );
           }
         }
-       
+
       });
 
       if(routeParams.do != null){
@@ -65,7 +69,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       }else{
         // this.processLogin(routeParams)
       }
-      
+
     });
   }
 
@@ -105,7 +109,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  } 
+  }
 
   signOut(routeParams): void {
     this.authService.signOut();

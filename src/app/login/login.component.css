@@ -1,0 +1,80 @@
+.header {
+  padding: 10px 40px 7px 40px;
+  background-color: #4b4b4b;
+  height: 70px;
+  position: absolute;
+  width: 100%;
+}
+
+.header .login {
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.header .get-started {
+  top: 1px;
+  margin: 3px 10px 0px 10px;
+  padding: 7px 20px;
+  background-color: #b5a95c;
+  color: white;
+  border-radius: 7px;
+  display: inline-block;
+}
+
+.sso-content {
+  padding-top: 70px;
+  height: 100%;
+  background: url(../../assets/sso-bg.png) no-repeat 0 70px fixed;
+  background-size: cover;
+}
+
+.sso-container {
+  height: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.text-container {
+  width: 1000px;
+  margin: auto;
+  margin-top: 150px;
+  text-align: center;
+}
+
+.text-container .suite-text {
+  font-size: 80px;
+  position: relative;
+  top: 25px;
+  color: #4b4b4b;
+  margin-left: 10px;
+  font-weight: bolder;
+}
+
+.text-container .suite-motto {
+  font-size: 36px;
+  margin-top: 20px;
+}
+
+.text-container .suite-login {
+  background: #4b4b4b;
+  color: #b5a95c;
+  display: inline-block;
+  margin-top: 50px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.text-container .suite-login .fa {
+  margin-left: 20px;
+}
+
+.suite-rights {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  padding-bottom: 10px;
+  color: #4b4b4b;
+}

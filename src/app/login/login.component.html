@@ -1,39 +1,21 @@
-<div class="jumbotron bg-transparent text-center">
-  <div class="offset-3 col-lg-6">
-      <div *ngIf="true" class="card text-center">
-          <h6 class="card-header">
-            Login
-          </h6>
-          <div class="card-block">
-            <h4 class="card-title">Not signed in</h4>
-            <p class="card-text">Sign in with</p>
-          </div>
-          <div class="card-block">
-            <button class="btn btn-social-icon btn-google" (click)="signInWithGoogle()"><span class="fa fa-google"></span></button>
-            <!-- <button class="btn btn-social-icon btn-facebook" (click)="signInWithFB()"><span class="fa fa-facebook"></span></button>
-            <button class="btn btn-social-icon btn-linkedin" (click)="signInWithLinkedIn()"><span class="fa fa-linkedin"></span></button> -->
-          </div>
-        </div>
+<div class="sso-container" style="">
+  <div class="header">
+    <div class="login" (click)="signInWithGoogle()">Log In</div>
+    <div class="get-started">Get Started</div>
   </div>
- 
-  <div class="offset-3 col-lg-6">
-    <div *ngIf="true" class="card text-center">
-      <h6 class="card-header">
-        <!-- Social Login Demo -->
-      </h6>
-      <div class="card-block"></div>
-      <div class="offset-3 col-lg-6">
-        <img class="card-img-top img-responsive photo" src="{{ user?.photoUrl }}">
+  <div class="sso-content">
+    <div class="text-container">
+      <div>
+        <img src="assets/sp-logo.png" style="height: 150px; width: 150px;">
+        <span class="suite-text">Suite</span>
       </div>
-      
-      <div class="card-block">
-        <h4 class="card-title">{{ user?.name }}</h4>
-        <p class="card-text">{{ user?.email }}</p>
-      </div>
-      <div class="card-block">
-        <button class="btn btn-danger" (click)="signOut()">Sign out</button>
+      <div class="suite-motto">Let the productivity begin!</div>
+      <div class="suite-login" (click)="signInWithGoogle()">
+        <span style="text-transform: uppercase;">Login Via Google</span>
+        <span class="fa fa-google-plus"></span>
       </div>
     </div>
+
+    <div class="suite-rights">2018 SPSuite. All Rights Reserved</div>
   </div>
- 
 </div>
