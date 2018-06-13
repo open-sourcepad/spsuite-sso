@@ -1,10 +1,10 @@
-<div class="sso-container" style="">
+<div class="sso-container">
   <div class="header">
     <div class="login" (click)="signInWithGoogle()">Log In</div>
     <div class="get-started">Get Started</div>
   </div>
   <div class="sso-content">
-    <div class="text-container">
+    <div class="text-container" hidden="true">
       <div>
         <img src="assets/sp-logo.png" style="height: 150px; width: 150px;">
         <span class="suite-text">Suite</span>
@@ -14,6 +14,39 @@
         <span style="text-transform: uppercase;">Login Via Google</span>
         <span class="fa fa-google-plus"></span>
       </div>
+    </div>
+    <div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" name="loginForm" novalidate="">
+        <div >
+          <!-- <label>Email</label> -->
+          <input autocomplete="off" class="form-control"  formControlName="name"  name="name" placeholder="Name" type="text">
+          <input autocomplete="off" class="form-control"  formControlName="email"  name="email" placeholder="Email" type="email">
+
+          <input autocomplete="off" class="form-control"  formControlName="department"  name="department" placeholder="Department" type="text">
+          <input autocomplete="off" class="form-control"  formControlName="position"  name="position" placeholder="Position" type="text">
+          
+          <input autocomplete="off" class="form-control"  formControlName="mobile_number"  name="mobile_number" placeholder="Mobile Number" type="text">
+          <input autocomplete="off" class="form-control"  formControlName="us_phone"  name="us_phone" placeholder="Us Mobile Number" type="text">
+          
+          <input autocomplete="off" class="form-control"  formControlName="skype"  name="skype" placeholder="Skype" type="text">
+          <input autocomplete="off" class="form-control"  formControlName="office_location"  name="office_location" placeholder="Office Location" type="text">
+          
+          <input autocomplete="off" class="form-control"  formControlName="birthday"  name="start_date" placeholder="Start Date" type="date">
+          <input autocomplete="off" class="form-control"  formControlName="age"  name="age" placeholder="Age" type="text">
+          <input autocomplete="off" class="form-control"  formControlName="start_date"  name="start_date" placeholder="Start Date" type="date">
+
+          <input autocomplete="off" class="form-control"  formControlName="tin_number"  name="tin_number" placeholder="TIN No." type="text">
+          <input autocomplete="off" class="form-control"  formControlName="sss_number"  name="sss_number" placeholder="SSS No." type="text">
+         
+          <input autocomplete="off" class="form-control"  formControlName="address"  name="address" placeholder="Address" type="text">
+          
+          <input autocomplete="off" class="form-control"  formControlName="person_to_notify"  name="person_to_notify" placeholder="Person to Notify incase of Emergency" type="text">
+          <input autocomplete="off" class="form-control"  formControlName="person_to_notify_mobile"  name="person_to_notify_mobile" placeholder="Mobile Number" type="text">
+          <!-- <span class="fa fa-envelope form-control-feedback text-muted"></span> -->
+          <!-- <div class="text-danger" *ngIf="email.errors?.required && submitted">This field is required</div>
+          <div class="text-danger" *ngIf="email.errors?.validateEmail && submitted">This field must be a valid email</div> -->
+        </div>
+      </form>
     </div>
 
     <div class="suite-rights">2018 SPSuite. All Rights Reserved</div>
