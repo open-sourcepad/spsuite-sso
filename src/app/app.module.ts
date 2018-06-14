@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { AppComponent } from './app.component';
 
@@ -14,6 +14,7 @@ import { provideConfig } from './providerconfig'
 // ADDED----
 import { ToastyModule } from 'ng2-toasty';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import {
   HttpService,
@@ -23,7 +24,8 @@ import {
 } from './services/util';
 
 import {
-  SessionService
+  SessionService,
+  UserService
 } from './services/api';
 
 const PROVIDERS = [
@@ -39,6 +41,7 @@ const PROVIDERS = [
   CommonService,
   LocalStorage,
   SessionService,
+  UserService,
   ToasterService
 ]
 
@@ -50,11 +53,13 @@ const PROVIDERS = [
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     SocialLoginModule,
     RouterModule,
     ToastyModule.forRoot(),
     SlimLoadingBarModule.forRoot(),
+    TextMaskModule,
     routing
   ],
   providers: [
