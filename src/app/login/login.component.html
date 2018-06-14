@@ -1,5 +1,5 @@
 <div class="sso-container">
-  <div class="header">
+  <div class="header" *ngIf="!showForm">
     <div *ngIf="!currentUser">
       <div class="login" (click)="signInWithGoogle()">Log In</div>
       <div class="get-started">Get Started</div>
@@ -10,43 +10,152 @@
     </div>
   </div>
   <div class="sso-content">
-    <div class="text-container" *ngIf="!showForm">
-      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" name="loginForm" novalidate="">
-        <div >
-          <!-- <label>Email</label> -->
-          <input autocomplete="off" class="form-control"  formControlName="name"  name="name" placeholder="Name" type="text">
-          <input autocomplete="off" class="form-control"  formControlName="email"  name="email" placeholder="Email" type="email">
-
-          <input autocomplete="off" class="form-control"  formControlName="department"  name="department" placeholder="Department" type="text">
-          <input autocomplete="off" class="form-control"  formControlName="position"  name="position" placeholder="Position" type="text">
-
-          <input autocomplete="off" class="form-control"  formControlName="mobile_number"  name="mobile_number" placeholder="Mobile Number" type="text">
-          <input autocomplete="off" class="form-control"  formControlName="us_phone"  name="us_phone" placeholder="Us Mobile Number" type="text">
-
-          <input autocomplete="off" class="form-control"  formControlName="skype"  name="skype" placeholder="Skype" type="text">
-          <input autocomplete="off" class="form-control"  formControlName="office_location"  name="office_location" placeholder="Office Location" type="text">
-
-          <input autocomplete="off" class="form-control"  formControlName="birthday"  [textMask]="{mask: birthdayMask}" name="start_date" placeholder="Start Date" type="text">
-          <input autocomplete="off" class="form-control"  formControlName="age"  name="age" placeholder="Age" type="text">
-          <input autocomplete="off" class="form-control"  formControlName="start_date" [textMask]="{mask: birthdayMask}"  name="start_date" placeholder="Start Date" type="text">
-
-          <input autocomplete="off" class="form-control"  formControlName="tin_number"  name="tin_number" placeholder="TIN No." type="text">
-          <input autocomplete="off" class="form-control"  formControlName="sss_number"  name="sss_number" placeholder="SSS No." type="text">
-
-          <input autocomplete="off" class="form-control"  formControlName="address"  name="address" placeholder="Address" type="text">
-
-          <input autocomplete="off" class="form-control"  formControlName="person_to_notify"  name="person_to_notify" placeholder="Person to Notify incase of Emergency" type="text">
-          <input autocomplete="off" class="form-control"  formControlName="person_to_notify_mobile"  name="person_to_notify_mobile" placeholder="Mobile Number" type="text">
-
-          <button  *ngIf="!isSubmitting" class="btn btn-block btn-success mt-lg" type="submit">Submit</button>
-          <button  *ngIf="isSubmitting" class="btn btn-block btn-success mt-lg" type="submit">Submitting</button>
-          <!-- <span class="fa fa-envelope form-control-feedback text-muted"></span> -->
-          <!-- <div class="text-danger" *ngIf="email.errors?.required && submitted">This field is required</div>
-          <div class="text-danger" *ngIf="email.errors?.validateEmail && submitted">This field must be a valid email</div> -->
+    <div class="sso-modal-container" *ngIf="!!showForm">
+      <div class="sso-modal-content">
+        <div class="sso-modal-header" style="width: 500px; text-align: center; margin: auto;margin-bottom: 40px">
+          <div>
+            <img src="assets/sp-logo-black.png" style="height: 50px; width: 50px;">
+            <span class="suite-text" style="font-size: 32px; font-weight: bolder; color: #000; top: 7px; position: relative;">
+              Suite
+            </span>
+          </div>
+          <div style="font-size: 32px; font-weight: 600; color:  #cec067;">
+            Employee Profile
+          </div>
+          <div style="font-size: 18px; font-weight: 500; color: #fff;">
+            Welcome to SourcePad! Please fill out your employee profile below:
+          </div>
         </div>
-      </form>
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" name="loginForm" novalidate="">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-container">
+                <span class="fa fa-user"></span>
+                <input autocomplete="off" class="form-control form-control-icon"  formControlName="name"  name="name" placeholder="Name" type="text">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-container">
+                <span class="fa fa-envelope"></span>
+                <input autocomplete="off" class="form-control form-control-icon"  formControlName="email"  name="email" placeholder="Email" type="email">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-container disabled">
+                <input autocomplete="off" class="form-control"  formControlName="department"  name="department" placeholder="Department" type="text">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-container disabled">
+                <input autocomplete="off" class="form-control"  formControlName="position"  name="position" placeholder="Position" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-container">
+                <span class="fa fa-phone"></span>
+                <input autocomplete="off" class="form-control form-control-icon"  formControlName="mobile_number"  name="mobile_number" placeholder="Mobile Number" type="text">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-container">
+                <span class="fa fa-phone"></span>
+                <input autocomplete="off" class="form-control form-control-icon"  formControlName="us_phone"  name="us_phone" placeholder="Us Mobile Number" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-container">
+                <span class="fa fa-skype"></span>
+                <input autocomplete="off" class="form-control form-control-icon"  formControlName="skype"  name="skype" placeholder="Skype" type="text">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-container">
+                <span class="fa fa-map-marker"></span>
+                <input autocomplete="off" class="form-control form-control-icon"  formControlName="office_location"  name="office_location" placeholder="Office Location" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-container">
+                <span class="fa fa-calendar"></span>
+                <input autocomplete="off" class="form-control form-control-icon"  formControlName="birthday"  [textMask]="{mask: birthdayMask}" name="start_date" placeholder="Start Date" type="text">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-container disabled">
+                <input autocomplete="off" class="form-control"  formControlName="age"  name="age" placeholder="Age" type="text">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-container disabled">
+                <span class="fa fa-calendar"></span>
+                <input autocomplete="off" class="form-control form-control-icon"  formControlName="start_date" [textMask]="{mask: birthdayMask}"  name="start_date" placeholder="Start Date" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-container disabled">
+                <input autocomplete="off" class="form-control"  formControlName="id_number"  name="id_number" placeholder="ID No." type="text">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-container disabled">
+                <input autocomplete="off" class="form-control"  formControlName="proximity_card_number"  name="proximity_card_number" placeholder="Proximity Card No." type="text">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-container disabled">
+                <input autocomplete="off" class="form-control"  formControlName="tin_number"  name="tin_number" placeholder="TIN No." type="text">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-container disabled">
+                <input autocomplete="off" class="form-control"  formControlName="sss_number"  name="sss_number" placeholder="SSS No." type="text">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-container">
+                <span class="fa fa-map-marker"></span>
+                <input autocomplete="off" class="form-control form-control-icon"  formControlName="address"  name="address" placeholder="Address" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-container">
+                <span class="fa fa-user"></span>
+                <input autocomplete="off" class="form-control form-control-icon"  formControlName="person_to_notify"  name="person_to_notify" placeholder="Person to Notify incase of Emergency" type="text">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-container">
+                <span class="fa fa-phone"></span>
+                <input autocomplete="off" class="form-control form-control-icon"  formControlName="person_to_notify_mobile"  name="person_to_notify_mobile" placeholder="Mobile Number" type="text">
+              </div>
+            </div>
+          </div>
+          <div>
+            <!-- <label>Email</label> -->
+            <button  *ngIf="!isSubmitting" class="btn btn-block btn-success mt-lg submit-button" type="submit">Submit</button>
+            <button  *ngIf="isSubmitting" class="btn btn-block btn-success mt-lg submit-button" type="submit">Submitting</button>
+            <!-- <span class="fa fa-envelope form-control-feedback text-muted"></span> -->
+            <!-- <div class="text-danger" *ngIf="email.errors?.required && submitted">This field is required</div>
+            <div class="text-danger" *ngIf="email.errors?.validateEmail && submitted">This field must be a valid email</div> -->
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="text-container" *ngIf="!!showForm">
+    <div class="text-container" *ngIf="!showForm">
       <div class="text-container" *ngIf="!currentUser">
         <div>
           <img src="assets/sp-logo.png" style="height: 150px; width: 150px;">

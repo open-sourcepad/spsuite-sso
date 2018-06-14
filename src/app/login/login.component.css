@@ -24,15 +24,14 @@
 .sso-content {
   padding-top: 70px;
   height: 100%;
-  background: url(../../assets/sso-bg.png) no-repeat 0 70px fixed;
-  background-size: cover;
 }
 
 .sso-container {
   height: 100%;
   padding-left: 0;
   padding-right: 0;
-  width: 100%
+  width: 100%;
+  overflow-y: scroll;
 }
 
 .text-container {
@@ -77,4 +76,68 @@
   width: 100%;
   padding-bottom: 10px;
   color: #4b4b4b;
+}
+
+.sso-modal-container {
+  width: 1000px;
+  position: absolute;
+  left: 50%;
+  z-index: 3;
+
+}
+
+.sso-modal-overlay {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+  background: #4b4b4b;
+  z-index: 2;
+}
+
+.sso-modal-content {
+  z-index: 3;
+  position: relative;
+  left: -50%;
+  opacity: 1 !important;
+  background: #969798;
+  border-radius: 5px;
+  padding: 40px 40px 20px 40px;
+}
+
+.sso-modal-content .form-control {
+  border: none;
+  display: inline;
+}
+
+.sso-modal-content .form-control-icon {
+  width: calc(100% - 38px);
+}
+
+.sso-modal-content .fa {
+  margin-right: 10px;
+  font-size: 20px;
+  color: #4b4b4b;
+  position: relative;
+  left: 10px;
+}
+
+.sso-modal-content .form-container {
+  padding: 5px;
+  background: white;
+  margin: 10px 0;
+}
+.sso-modal-content .form-container.disabled {
+  background: #eceeef;
+}
+
+.sso-modal-content .submit-button {
+  background-color: #cec067;
+  border-color: #cec067;
+  margin: auto;
+  width: 200px;
+  text-transform: uppercase;
+  margin-top: 40px;
 }

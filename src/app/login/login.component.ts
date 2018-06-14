@@ -52,6 +52,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
       'birthday': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'age': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
       'start_date': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
+      'id_number': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
+      'proximity_card_number': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
       'tin_number': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
       'sss_number': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
       'address': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
