@@ -24,16 +24,12 @@ declare const gapi: any;
 export class LoginComponent implements OnInit, AfterViewInit {
 
   user: SocialUser;
-<<<<<<< HEAD
-  currentUser: any;
-=======
   currentUser: any = null;
   showForm = false;
   form: FormGroup;
   routeParams: any;
   isSubmitting:boolean =  false;
   birthdayMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/,/\d/, /\d/];
->>>>>>> 51214990a453f071ddadae34e6868d625ea37077
   // private loggedIn: boolean;
 
   constructor(
@@ -141,10 +137,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   processLogout(){
-<<<<<<< HEAD
-    this.signOut("")
-=======
->>>>>>> 51214990a453f071ddadae34e6868d625ea37077
     this.session.signout();
     this.currentUser = this.session.getCurrentUser()
   }
