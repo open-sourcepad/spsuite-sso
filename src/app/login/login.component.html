@@ -1,5 +1,5 @@
 <div class="sso-container">
-  <div class="header" *ngIf="!showForm">
+  <div class="header">
     <div *ngIf="!currentUser">
       <div class="login" (click)="signInWithGoogle()">Log In</div>
       <div class="get-started">Get Started</div>
@@ -9,10 +9,10 @@
       <span style="float: right;cursor: pointer;" (click)="processLogout()">Logout</span>
     </div>
   </div>
-  <div class="sso-content">
-    <div class="sso-modal-container" *ngIf="!!showForm">
+  <div class="d-flex justify-content-center container">
+    <div *ngIf="showForm" class="sso-modal-container">
       <div class="sso-modal-content">
-        <div class="sso-modal-header" style="width: 500px; text-align: center; margin: auto;margin-bottom: 40px">
+        <div class="sso-modal-header" style="max-width: 500px; text-align: center; margin: auto;margin-bottom: 40px">
           <div>
             <img src="assets/sp-logo-black.png" style="height: 50px; width: 50px;">
             <span class="suite-text" style="font-size: 32px; font-weight: bolder; color: #000; top: 7px; position: relative;">
@@ -29,136 +29,163 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" name="loginForm" novalidate="">
           <div class="row">
             <div class="col-md-6">
-              <div class="form-container">
+              <label class="mb-0" for="name">Name</label>
+              <div class="form-container mt-0" [ngClass]="{'mb-0 pb-0': form.get('name').hasError('required') && isSubmit}">
                 <span class="fa fa-user"></span>
-                <input autocomplete="off" class="form-control form-control-icon"  formControlName="name"  name="name" placeholder="Name" type="text">
+                <input  id="name" autocomplete="off" class="form-control form-control-icon"  formControlName="name"  name="name" placeholder="Name" type="text">
               </div>
+              <small class="text-danger" *ngIf="form.get('name').hasError('required') && isSubmit">This field is required</small>
             </div>
             <div class="col-md-6">
-              <div class="form-container">
+              <label class="mb-0" for="email">Email</label>
+              <div class="form-container mt-0" [ngClass]="{'mb-0 pb-0': form.get('name').hasError('required') && isSubmit} || this.form.get('email').hasError('validateEmail') && isSubmit">
                 <span class="fa fa-envelope"></span>
-                <input autocomplete="off" class="form-control form-control-icon"  formControlName="email"  name="email" placeholder="Email" type="email">
+                <input id="email" autocomplete="off" class="form-control form-control-icon"  formControlName="email"  name="email" placeholder="Email" type="email">
+              </div>
+              <small class="text-danger" *ngIf="form.get('email').hasError('required') && isSubmit">This field is required</small>
+              <small class="text-danger" *ngIf="!form.get('email').hasError('required') && this.form.get('email').hasError('validateEmail') && isSubmit">Invalid Email Address</small>  
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label class="mb-0" for="department">Department</label>
+              <div class="form-container disabled mt-0">
+                <input id="department" autocomplete="off" class="form-control"  formControlName="department"  name="department" placeholder="Department" type="text">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="mb-0" for="position">Position</label>
+              <div class="form-container disabled mt-0">
+                <input id="position" autocomplete="off" class="form-control"  formControlName="position"  name="position" placeholder="Position" type="text">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
-              <div class="form-container disabled">
-                <input autocomplete="off" class="form-control"  formControlName="department"  name="department" placeholder="Department" type="text">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-container disabled">
-                <input autocomplete="off" class="form-control"  formControlName="position"  name="position" placeholder="Position" type="text">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-container">
+              <label class="mb-0" for="mobile_number">Mobile Number</label>
+              <div class="form-container  mt-0" [ngClass]="{'mb-0 pb-0': form.get('mobile_number').hasError('required') && isSubmit}">
                 <span class="fa fa-phone"></span>
-                <input autocomplete="off" class="form-control form-control-icon"  formControlName="mobile_number"  name="mobile_number" placeholder="Mobile Number" type="text">
+                <input id="mobile_number" autocomplete="off" class="form-control form-control-icon"  formControlName="mobile_number"  name="mobile_number" placeholder="Mobile Number" type="text">
               </div>
+              <small class="text-danger" *ngIf="form.get('mobile_number').hasError('required') && isSubmit">This field is required</small>
             </div>
             <div class="col-md-6">
-              <div class="form-container">
+              <label class="mb-0" for="us_phone">US Mobile Number</label>
+              <div class="form-container  mt-0" [ngClass]="{'mb-0 pb-0': form.get('us_phone').hasError('required') && isSubmit}">
                 <span class="fa fa-phone"></span>
-                <input autocomplete="off" class="form-control form-control-icon"  formControlName="us_phone"  name="us_phone" placeholder="Us Mobile Number" type="text">
+                <input id="us_phone" autocomplete="off" class="form-control form-control-icon"  formControlName="us_phone"  name="us_phone" placeholder="US Mobile Number" type="text">
               </div>
+              <small class="text-danger" *ngIf="form.get('us_phone').hasError('required') && isSubmit">This field is required</small>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
-              <div class="form-container">
+              <label class="mb-0" for="skype">Skype</label>
+              <div class="form-container  mt-0" [ngClass]="{'mb-0 pb-0': form.get('skype').hasError('required') && isSubmit}">
                 <span class="fa fa-skype"></span>
-                <input autocomplete="off" class="form-control form-control-icon"  formControlName="skype"  name="skype" placeholder="Skype" type="text">
+                <input id="skype" autocomplete="off" class="form-control form-control-icon"  formControlName="skype"  name="skype" placeholder="Skype" type="text">
               </div>
+              <small class="text-danger" *ngIf="form.get('skype').hasError('required') && isSubmit">This field is required</small>
             </div>
             <div class="col-md-6">
-              <div class="form-container">
+              <label class="mb-0" for="office_location">Office Location</label>
+              <div class="form-container mt-0" [ngClass]="{'mb-0 pb-0': form.get('office_location').hasError('required') && isSubmit}">
                 <span class="fa fa-map-marker"></span>
-                <input autocomplete="off" class="form-control form-control-icon"  formControlName="office_location"  name="office_location" placeholder="Office Location" type="text">
+                <input id="office_location" autocomplete="off"  class="form-control form-control-icon"  formControlName="office_location"  name="office_location" placeholder="Office Location" type="text">
+              </div>
+              <small class="text-danger" *ngIf="form.get('office_location').hasError('required') && isSubmit">This field is required</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4 col-sm-6">
+              <label class="mb-0" for="birthday">Birthday</label>
+              <div class="form-container mt-0"  [ngClass]="{'mb-0 pb-0':form.get('birthday').hasError('required') && isSubmit || !form.get('birthday').hasError('required') && invalidBirthday && isSubmit}">
+                <span class="fa fa-calendar"></span>
+                <input id="birthday" autocomplete="off" class="form-control form-control-icon"  formControlName="birthday"  [textMask]="{mask: birthdayMask}" name="start_date" placeholder="Birth Date" type="text">
+              </div>
+              
+              <small class="text-danger" *ngIf="form.get('birthday').hasError('required') && isSubmit">This field is required</small>
+              <small class="text-danger" *ngIf="!form.get('birthday').hasError('required') && invalidBirthday && isSubmit">Birthday is invalid</small>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+              <label class="mb-0" for="age">Age</label>
+              <div class="form-container disabled mt-0">
+                <input id="age" autocomplete="off" class="form-control"  formControlName="age"  name="age" placeholder="Age" type="text">
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+              <label class="mb-0" for="start_date">Start Date</label>
+              <div class="form-container disabled mt-0">
+                <span class="fa fa-calendar"></span>
+                <input id="start_date" autocomplete="off" class="form-control form-control-icon"  formControlName="start_date" [textMask]="{mask: birthdayMask}"  name="start_date" placeholder="Start Date" type="text">
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4">
-              <div class="form-container">
-                <span class="fa fa-calendar"></span>
-                <input autocomplete="off" class="form-control form-control-icon"  formControlName="birthday"  [textMask]="{mask: birthdayMask}" name="start_date" placeholder="Start Date" type="text">
+            <div class="col-lg-3 col-sm-6">
+              <label class="mb-0" for="id_number">ID No.</label>
+              <div class="form-container disabled mt-0">
+                <input id="id_number" autocomplete="off" class="form-control"  formControlName="id_number"  name="id_number" placeholder="ID No." type="text">
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="form-container disabled">
-                <input autocomplete="off" class="form-control"  formControlName="age"  name="age" placeholder="Age" type="text">
+            <div class="col-lg-3 col-sm-6">
+              <label class="mb-0" for="proximity_card_number">Proximity Card No.</label>
+              <div class="form-container disabled mt-0">
+                <input id="proximity_card_number" autocomplete="off" class="form-control"  formControlName="proximity_card_number"  name="proximity_card_number" placeholder="Proximity Card No." type="text">
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="form-container disabled">
-                <span class="fa fa-calendar"></span>
-                <input autocomplete="off" class="form-control form-control-icon"  formControlName="start_date" [textMask]="{mask: birthdayMask}"  name="start_date" placeholder="Start Date" type="text">
+            <div class="col-lg-3 col-sm-6">
+              <label class="mb-0" for="tin_number">TIN No.</label>
+              <div class="form-container disabled mt-0">
+                <input id="tin_number" autocomplete="off" class="form-control"  formControlName="tin_number"  name="tin_number" placeholder="TIN No." type="text">
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <div class="form-container disabled">
-                <input autocomplete="off" class="form-control"  formControlName="id_number"  name="id_number" placeholder="ID No." type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-container disabled">
-                <input autocomplete="off" class="form-control"  formControlName="proximity_card_number"  name="proximity_card_number" placeholder="Proximity Card No." type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-container disabled">
-                <input autocomplete="off" class="form-control"  formControlName="tin_number"  name="tin_number" placeholder="TIN No." type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-container disabled">
-                <input autocomplete="off" class="form-control"  formControlName="sss_number"  name="sss_number" placeholder="SSS No." type="text">
+            <div class="col-lg-3 col-sm-6">
+              <label class="mb-0" for="sss_number">SSS No.</label>
+              <div class="form-container disabled mt-0">
+                <input id="sss_number" autocomplete="off" class="form-control"  formControlName="sss_number"  name="sss_number" placeholder="SSS No." type="text">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <div class="form-container">
+              <label class="mb-0" for="address">Address</label>
+              <div class="form-container mt-0" [ngClass]="form.get('address').hasError('required') && isSubmit">
                 <span class="fa fa-map-marker"></span>
-                <input autocomplete="off" class="form-control form-control-icon"  formControlName="address"  name="address" placeholder="Address" type="text">
+                <input id="address" autocomplete="off" class="form-control form-control-icon"  formControlName="address"  name="address" placeholder="Address" type="text">
               </div>
+              <small class="text-danger" *ngIf="form.get('address').hasError('required') && isSubmit">This field is required</small>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
-              <div class="form-container">
+              <label class="mb-0" for="person_to_notify">Person to Notify incase of Emergency</label>
+              <div class="form-container mt-0" [ngClass]="form.get('person_to_notify').hasError('required') && isSubmit">
                 <span class="fa fa-user"></span>
-                <input autocomplete="off" class="form-control form-control-icon"  formControlName="person_to_notify"  name="person_to_notify" placeholder="Person to Notify incase of Emergency" type="text">
+                <input id="person_to_notify" autocomplete="off" class="form-control form-control-icon"  formControlName="person_to_notify"  name="person_to_notify" placeholder="Person to Notify incase of Emergency" type="text">
               </div>
+              <small class="text-danger" *ngIf="form.get('person_to_notify').hasError('required') && isSubmit">This field is required</small>
             </div>
             <div class="col-md-6">
-              <div class="form-container">
+              <label class="mb-0" for="person_to_notify_mobile">Mobile Number</label>
+              <div class="form-container mt-0" [ngClass]="form.get('person_to_notify_mobile').hasError('required') && isSubmit">
                 <span class="fa fa-phone"></span>
-                <input autocomplete="off" class="form-control form-control-icon"  formControlName="person_to_notify_mobile"  name="person_to_notify_mobile" placeholder="Mobile Number" type="text">
+                <input id="person_to_notify_mobile" autocomplete="off" class="form-control form-control-icon"  formControlName="person_to_notify_mobile"  name="person_to_notify_mobile" placeholder="Mobile Number" type="text">
               </div>
+              <small class="text-danger" *ngIf="form.get('person_to_notify_mobile').hasError('required') && isSubmit">This field is required</small>
             </div>
           </div>
           <div>
-            <!-- <label>Email</label> -->
             <button  *ngIf="!isSubmitting" class="btn btn-block btn-success mt-lg submit-button" type="submit">Submit</button>
             <button  *ngIf="isSubmitting" class="btn btn-block btn-success mt-lg submit-button" type="submit">Submitting</button>
-            <!-- <span class="fa fa-envelope form-control-feedback text-muted"></span> -->
-            <!-- <div class="text-danger" *ngIf="email.errors?.required && submitted">This field is required</div>
-            <div class="text-danger" *ngIf="email.errors?.validateEmail && submitted">This field must be a valid email</div> -->
           </div>
         </form>
       </div>
     </div>
     <div class="text-container" *ngIf="!showForm">
-      <div class="text-container" *ngIf="!currentUser">
+      <div class="text-container container" *ngIf="!currentUser">
         <div>
-          <img src="assets/sp-logo.png" style="height: 150px; width: 150px;">
+          <img src="assets/sp-logo.png" class="logo">
           <span class="suite-text">Suite</span>
         </div>
         <div class="suite-motto">Let the productivity begin!</div>
@@ -167,7 +194,22 @@
           <span class="fa fa-google-plus"></span>
         </div>
       </div>
+      <div class="text-container container" *ngIf="currentUser">
+          <div>
+            <img src="assets/sp-logo.png" class="logo">
+            <span class="suite-text">Suite</span>
+          </div>
+          <div class="suite-motto">Let the productivity begin!</div>
+          <p class="suite-user" style="margin-top:50px;">Hi {{currentUser.name}}!</p>
+        </div>
     </div>
-    <div class="suite-rights">2018 SPSuite. All Rights Reserved</div>
+    
   </div>
+  <div class="center-bottom">
+      <div class="d-flex justify-content-center">
+          <div class="suite-rights">2018 SPSuite. All Rights Reserved</div>
+      </div>
+  </div>
+
+  
 </div>

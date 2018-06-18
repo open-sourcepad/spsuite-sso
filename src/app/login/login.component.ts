@@ -10,6 +10,7 @@ import { EmailValidator } from '../validators';
 import { environment } from '../../environments/environment'
 import { LocalStorage } from '../services/util'
 
+import * as moment from 'moment';
 declare const gapi: any;
 
 @Component({
@@ -29,6 +30,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   form: FormGroup;
   routeParams: any;
   isSubmitting:boolean =  false;
+  isSubmit:boolean = false;
+  invalidBirthday = false;
   birthdayMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/,/\d/, /\d/];
   // private loggedIn: boolean;
 
@@ -41,29 +44,48 @@ export class LoginComponent implements OnInit, AfterViewInit {
     fb: FormBuilder
   ) {
     this.form = fb.group({
-      'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'department': [ {value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
-      'position': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
-      'mobile_number': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'us_phone': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'skype': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'office_location': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'birthday': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'age': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
-      'start_date': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
-      'id_number': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
-      'proximity_card_number': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
-      'tin_number': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
-      'sss_number': [{value: '', disabled: true}, Validators.compose([Validators.required, Validators.minLength(4)])],
-      'address': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'person_to_notify': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'person_to_notify_mobile': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'name': ['', Validators.compose([Validators.required])],
+      'email': ['', Validators.compose([Validators.required,EmailValidator.validate])],
+      'department': [ {value: '', disabled: true}, Validators.compose([Validators.required])],
+      'position': [{value: '', disabled: true}, Validators.compose([Validators.required])],
+      'mobile_number': ['', Validators.compose([Validators.required])],
+      'us_phone': ['', Validators.compose([])],
+      'skype': ['', Validators.compose([Validators.required])],
+      'office_location': ['', Validators.compose([Validators.required])],
+      'birthday': ['', Validators.compose([Validators.required])],
+      'age': [{value: '', disabled: true}, Validators.compose([Validators.required])],
+      'start_date': [{value: '', disabled: true}, Validators.compose([Validators.required])],
+      'id_number': [{value: '', disabled: true}, Validators.compose([Validators.required])],
+      'proximity_card_number': [{value: '', disabled: true}, Validators.compose([Validators.required])],
+      'tin_number': [{value: '', disabled: true}, Validators.compose([Validators.required])],
+      'sss_number': [{value: '', disabled: true}, Validators.compose([Validators.required])],
+      'address': ['', Validators.compose([Validators.required])],
+      'person_to_notify': ['', Validators.compose([Validators.required])],
+      'person_to_notify_mobile': ['', Validators.compose([Validators.required])],
 
     });
+    let birthdayForm = this.form.get('birthday');
+    let ageForm = this.form.get('age');
+    birthdayForm.valueChanges.subscribe(val => {
+      if(val!=null && !val.includes('_')){
+       let age = moment().diff(moment(val, 'MM-DD-YYYY'), 'years') || -1
+       if(age != -1 && age < 100){
+         this.invalidBirthday = false;
+        ageForm.setValue(age+"");
+       }else{
+        this.invalidBirthday = true;
+       }
+      }else{
+        this.invalidBirthday = true;
+      }
+      });
+
    }
   ngOnInit() {
     this.currentUser = this.session.getCurrentUser();
+    if(this.currentUser!=null && !this.currentUser.is_verified){
+      this.showForm = true;
+    }
   }
 
   ngAfterViewInit(){
@@ -78,17 +100,20 @@ export class LoginComponent implements OnInit, AfterViewInit {
           if(routeParams.do == "sign-out"){
             this.signOut(routeParams);
           }else{
-
-            this.user = user;
             this.session.authenticateSsoToken({token:user.authToken}).subscribe(
               res => {
-                console.log("login is updated")
-                this.session.setSession(res.user);
-                this.form.patchValue(res.user);
+                let user = this.formatDate(res.user);
+                this.session.setSession(user);
+                this.currentUser = this.session.getCurrentUser();
+                if(user.birthday != null){
+                  user.age = moment().diff(moment(user.birthday, 'MMDDYYYY'), 'years')
+                }
+                this.form.patchValue(res.user,{emitEvent:false});
 
-                if (res.user.is_verified) {
+                if (user.is_verified) {
+                  this.showForm = false;
                   if (routeParams.url) {
-                    window.location.href = `${routeParams.url}?sso=${res.user.sso_token}&email=${res.user.email}`
+                    window.location.href = `${routeParams.url}?sso=${user.sso_token}&email=${user.email}`
                   }
                 } else {
                   this.showForm = true;
@@ -117,6 +142,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
   }
 
+  formatDate(user):any{
+
+    user.birthday = moment(user.birthday).format('MMDDYYYY');
+    user.start_date = moment(user.birthday).format('MMDDYYYY');
+    return user
+  }
+  
   processLogin(){
     let currentUser:any = this.session.getCurrentUser();
 
@@ -125,10 +157,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
       if(this.routeParams.url != null){
         this.session.checkSession().subscribe((res) => {
           console.log("login is updated")
-          this.session.setSession(res.user);
-          debugger
-          if (res.user.is_verified) {
-            this.redirectUser(this.routeParams, res.user)
+          let user = this.formatDate(res.user);
+          this.session.setSession(user);
+          if (user.is_verified) {
+            this.redirectUser(this.routeParams, user)
           } else {
             this.showForm = true;
             console.log("show form")
@@ -141,6 +173,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   processLogout(){
     this.session.signout();
     this.currentUser = this.session.getCurrentUser()
+    this.signOut(this.routeParams);
   }
 
   redirectUser(routeParams, user=null) {
@@ -153,12 +186,19 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 
   onSubmit(values: Object){
+    debugger
+    this.isSubmit = true;
+    if(!this.form.valid || this.invalidBirthday){
+      return;
+    }
     this.isSubmitting = true;
-    this.userService.update(this.currentUser.id,values).subscribe(res=>{
+    this.userService.verify(values).subscribe(res=>{
       this.isSubmitting = false;
+      if(res.user.is_verified){
+        this.showForm = false;
+      }
+      this.session.setSession(res.user);
       if(this.routeParams.url != null){
-          console.log("login is updated")
-          this.session.setSession(res.user);
           this.redirectUser(this.routeParams, res.user)
       }
     })
@@ -169,11 +209,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   signOut(routeParams): void {
+    this.showForm = false;
     this.authService.signOut();
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.disconnect()
     this.session.clearSession();
     this.user = null;
-    this.redirectUser(routeParams);
+    if(this.routeParams.url != null){
+      this.redirectUser(routeParams);
+    }
+    
   }
 }

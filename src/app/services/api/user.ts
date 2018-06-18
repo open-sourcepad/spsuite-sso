@@ -9,8 +9,8 @@ export class UserService {
 
   constructor(private http: HttpService) {}
 
-  update(userId: number, payload: Object): any {
-    return this.http.patch(`${this.apiEndpoint}/${userId}`, { user: payload });
+  verify(payload: Object): any {
+    return this.http.patch(`${this.apiEndpoint}/verify`, { user: payload });
   }
 
 }

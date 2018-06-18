@@ -2,3 +2,15 @@
 * {
   font-family: "Source Sans Pro script=all rev=1";
 }
+.background{
+  position:fixed;
+  bottom:0;
+  left:0;
+}
+@media (max-width: 767px){
+  
+  .background{
+    top:0;
+  }
+ 
+} 
