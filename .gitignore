@@ -16,6 +16,8 @@
 *.launch
 .settings/
 *.sublime-workspace
+dist.tar.gz
+
 
 # IDE - VSCode
 .vscode/*
