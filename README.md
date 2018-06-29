@@ -36,24 +36,31 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     providers: [
     AuthGuard
     ],
+    ```
  3. Inside session.ts add these functions<br />
+    ```
      verifySsoToken(payload: any){
         let sign_in_url = "https://api.spsuite.co/api";
         return this.http.post(`${sign_in_url}/sso/validate_token`, payload , true);
      }
-
+    ```
+    ```
     refreshSsoToken(){
         let sign_in_url = "https://api.spsuite.co/api";
         return this.http.get(`${sign_in_url}/sso/show`);
     }
+    ```
  4. Import AuthGuard and add the guard to route<br />
+    ```
      example:
       {
         path: 'company-events',
         component: CompanyEventsComponent,
         canActivate: [AuthGuard] ,
       },
+    ```
   5. Add this code to the nginit of every component to remove parameters after authentication<br />
+    ```
         this.activeRoute.queryParams.subscribe(routeParams => {
         if(routeParams.sso!=null){
             this.location.replaceState(this.location.path().split("?")[0])
@@ -61,3 +68,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
         
         });
     } 
+    ```
