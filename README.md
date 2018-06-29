@@ -25,3 +25,40 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## How to add SSO Authentication to client
+ 1. Copy route-guard folder to app/ of client
+ 2. Import AuthGuard  to app.module.ts 
+    import {
+    AuthGuard 
+    } from './services/route-guards'
+
+    providers: [
+    AuthGuard
+    ],
+ 3. Inside session.ts add these functions
+     verifySsoToken(payload: any){
+        let sign_in_url = "https://api.spsuite.co/api";
+        return this.http.post(`${sign_in_url}/sso/validate_token`, payload , true);
+     }
+
+    refreshSsoToken(){
+        let sign_in_url = "https://api.spsuite.co/api";
+        return this.http.get(`${sign_in_url}/sso/show`);
+    }
+ 4. Import AuthGuard and add the guard to route
+     example:
+      {
+        path: 'company-events',
+        component: CompanyEventsComponent,
+        canActivate: [AuthGuard] ,
+      },
+  5. Add this code to the nginit of every component to remove parameters after authentication
+    ngOnInit() {
+        this.activeRoute.queryParams.subscribe(routeParams => {
+        if(routeParams.sso!=null){
+            this.location.replaceState(this.location.path().split("?")[0])
+        }
+        
+        });
+    } 
