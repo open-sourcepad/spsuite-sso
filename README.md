@@ -61,11 +61,11 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     ```
   5. Add this code to the nginit of every component to remove parameters after authentication<br />
     ```
-        this.activeRoute.queryParams.subscribe(routeParams => {
-        if(routeParams.sso!=null){
-            this.location.replaceState(this.location.path().split("?")[0])
-        }
-        
-        });
-    } 
+            this.activeRoute.queryParams.subscribe(routeParams => {
+            if(routeParams.sso!=null){
+                this.location.replaceState(this.location.path().split("?")[0])
+            }
+            
+            });
+        } 
     ```
