@@ -92,11 +92,12 @@
 //   }
 
 
-//   verifySsoToken(routeParams,observer){
+// verifySsoToken(routeParams,observer){
     
 //     this.session.verifySsoToken({sso_token:routeParams.sso,email:routeParams.email}).subscribe((res) => {
-//       this.session.setSession(res.user);
-      
+
+//       res.data.attributes['id'] = res.data.id
+//       this.session.setSession(res.data.attributes); //user object
 //       observer.next(true); //user is logged in
 //       observer.complete();
 //     },err => {
@@ -107,4 +108,3 @@
       
 //      });
 //   }
-// }

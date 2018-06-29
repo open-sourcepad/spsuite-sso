@@ -69,3 +69,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
         });
     } 
     ```
+  6. Don't forget to add headers in request
+        headerParams['AccessToken'] = currentUser.access_token;
+        headerParams['UserId'] = currentUser.id;
+        headerParams['UserEmail'] = currentUser.email;
