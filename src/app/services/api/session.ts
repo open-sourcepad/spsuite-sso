@@ -30,8 +30,8 @@ export class SessionService {
     return this.http.post(`${this.apiEndpoint}/sso`, payload , true);
   }
 
-  checkSession(): any {
-    return this.http.get(`${this.apiEndpoint}/sso/show`);
+  checkSession(id): any {
+    return this.http.get(`${this.apiEndpoint}/sso/${id}`);
   }
 
   setSession(user: any): void {

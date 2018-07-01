@@ -102,6 +102,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           }else{
             this.session.authenticateSsoToken({token:user.authToken}).subscribe(
               res => {
+                debugger
                 let user = this.formatDate(res.user);
                 this.session.setSession(user);
                 this.currentUser = this.session.getCurrentUser();
@@ -155,7 +156,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     if(currentUser!=null){
 
       if(this.routeParams.url != null){
-        this.session.checkSession().subscribe((res) => {
+        this.session.checkSession(currentUser.id).subscribe((res) => {
           console.log("login is updated")
           let user = this.formatDate(res.user);
           this.session.setSession(user);
@@ -197,7 +198,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
       if(res.user.is_verified){
         this.showForm = false;
       }
-      this.session.setSession(res.user);
+      debugger
+      res.data.attributes['id'] = res.data.id
+      this.session.setSession(res.data.attributes); 
+
+      // this.session.setSession(res.user);
       if(this.routeParams.url != null){
           this.redirectUser(this.routeParams, res.user)
       }

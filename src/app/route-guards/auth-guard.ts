@@ -10,6 +10,7 @@
 // export class AuthGuard implements CanActivate {
 //   user;
 //   sign_in_url = "https://sso.spsuite.co/";
+//   // sign_in_url = "http://sso.example.com:4200/";
 //   base_url = "http://localhost:3000";
 
 //   constructor(
@@ -46,8 +47,6 @@
 //         }
 //       }),
 //       catchError((err) => {
-//         console.log("error",err)
-//         // this.router.navigate(['/login']);
 //         return of(false);
 //       })
 //     );
@@ -56,17 +55,14 @@
 
 
 //   processLogin(routeParams,observer){
-//     let user = this.session.getCurrentUser()
+//     let user = this.session.getCurrentUser() || null
     
-//     if(this.session.getCurrentUser()==null){
+//     if(user==null){
 //       if(routeParams.sso != null){
-//         // setTimeout(this.verifySsoToken(routeParams,observer), 5000);
-//         // observer.next(true); 
 //         this.verifySsoToken(routeParams,observer);
 //       }else{
 //         observer.next(false); 
 //         observer.complete();
-        
 //         window.location.href = this.sign_in_url+"?url="+this.base_url+this.location.path()+"&do=sign-in";
 //       }
 //     }else{
@@ -75,13 +71,18 @@
 //   }
 
 //   getNewSsoToken(observer){
-//     this.session.refreshSsoToken().subscribe((res) => {
+//     let user = this.session.getCurrentUser();
+    
+//     this.session.refreshSsoToken(user.id).subscribe((res) => {
+      
 //       this.location.replaceState('', '')
 //       console.log("user is updated");
-//       this.session.setSession(res.user);
+//       res.data.attributes['id'] = res.data.id
+//       this.session.setSession(res.data.attributes); //user object
 //       observer.next(true);
 //       observer.complete();
 //     },err => {
+      
 //       observer.next(false);
 //       observer.complete();
 //       this.session.clearSession();
@@ -92,7 +93,7 @@
 //   }
 
 
-// verifySsoToken(routeParams,observer){
+//   verifySsoToken(routeParams,observer){
     
 //     this.session.verifySsoToken({sso_token:routeParams.sso,email:routeParams.email}).subscribe((res) => {
 
@@ -108,3 +109,4 @@
       
 //      });
 //   }
+// }
