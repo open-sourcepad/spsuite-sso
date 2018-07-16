@@ -1,0 +1,33 @@
+.row
+  .col-md-12
+    ul.pagination.pull-right
+      li.pagination-prev.page-item
+        a.page-link(
+          '(click)'='selectPage(currentPage - 1, $event);false'
+          '[class.disabled]'='currentPage == 1'
+        ) Previous
+
+      li.disabled.pagination-page.page-item(
+        '(click)'='cancelEvent($event)'
+        '*ngIf'='(currentPage - range) > 1'
+      )
+        a(href='javascript:void(0)') ...
+
+      li.pagination-page.page-item(
+        '*ngFor'='let page of pages | async'
+        '[class.active]'='page == currentPage'
+      )
+        a.page-link(
+          '(click)'='selectPage(page);false'
+        ) {{ page }}
+
+      li.disabled.pagination-page.page-item(
+        '(click)'='cancelEvent($event)'
+        '*ngIf'='(currentPage + range) < totalPages'
+      )
+        a(href='javascript:void(0)') ...
+      li.pagination-next.page-item
+        a.page-link(
+          '(click)'='selectPage(currentPage + 1, $event);false'
+          '[class.disabled]'='currentPage == totalPages'
+        ) Next

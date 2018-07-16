@@ -1,4 +1,5 @@
 import { AppPage } from './app.po';
+import {} from 'jasmine';
 
 describe('spsuite-sso App', () => {
   let page: AppPage;

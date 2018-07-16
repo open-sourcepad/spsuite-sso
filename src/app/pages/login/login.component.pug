@@ -1,0 +1,38 @@
+.container
+  .row
+    .col-md-4
+      h1 Login
+
+      .alert.alert-danger(role='alert' '*ngIf'="errors")
+        .container
+          .alert-icon
+            i.now-ui-icons.objects_support-17
+          strong Oh snap! 
+          span( *ngFor="let msg of errors" ) {{ msg }}
+
+      form.form-horizontal(
+        '[formGroup]'="form"
+        '(ngSubmit)'="onSubmit(form.value)"
+      )
+        .form-group
+          label(for="email") Email address
+          input#email.form-control(
+            type="email"
+            formControlName="email"
+            placeholder="joe@example.com"
+            '[ngClass]'="{ 'is-invalid': form.controls.email.touched && form.controls.email.invalid }"
+          )
+        .form-group
+          label(for="password") Password
+          input#password.form-control(
+            type="password"
+            formControlName="password"
+            placeholder="******"
+            '[ngClass]'="{ 'is-invalid': form.controls.password.touched && form.controls.password.invalid }"
+          )
+        button.btn.btn-primary(type="submit" '[disabled]'="form.invalid") Submit
+        p
+          | No account yet? 
+          a('[routerLink]'="['/register']") Create account
+          |  for free.
+    .col-md-8

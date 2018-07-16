@@ -1,0 +1,86 @@
+$cardHeight: calc(90vh - 75px);
+$cardQuad: calc((90vh - 285px)/2);
+$cardLeave: calc( ((90vh - 285px)/2) - 45.5px );
+
+$projectListHeight: calc(90vh - (75px + 80px));
+
+.card-full-height {
+  height: $cardHeight;
+  min-height: $cardHeight;
+  margin: 0;
+}
+
+.project-list {
+  overflow-y: scroll;
+  height: $projectListHeight;
+}
+
+.commendations-container {
+  overflow-y: scroll;
+  height: 90%;
+}
+
+.commendations-body {
+  height: 90%;
+}
+
+.company-events-body, .employee-events-body {
+  height: 90%;
+}
+
+.company-event-container, .employee-event-container {
+  overflow-y: scroll;
+  height: 70%;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.card {
+  margin-bottom: 4px;
+}
+
+
+.card-worklog {
+  height: 200px;
+}
+
+.card-quad {
+  height: $cardQuad;
+}
+
+.card-leave {
+  height: $cardLeave;
+}
+
+// helpers
+$m: 2px;
+
+.mlr {
+  margin-left: $m;
+  margin-right: $m;
+}
+
+.ml {
+  margin-left: $m;
+}
+
+.mr {
+  margin-right: $m;
+}
+
+.mb {
+  margin-bottom: $m;
+}
+
+.m {
+  margin: $m;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.btn-no-margin {
+  margin: 0
+}

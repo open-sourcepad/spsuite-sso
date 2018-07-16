@@ -1,0 +1,46 @@
+.container
+  .row
+    .col-md-4
+      h1 Register
+      form.form-horizontal(
+        '[formGroup]'="form"
+        '(ngSubmit)'="onSubmit(form.value)"
+      )
+        .alert.alert-danger(role='alert' '*ngIf'="errors")
+          .container
+            .alert-icon
+              i.now-ui-icons.objects_support-17
+            strong Oh snap! 
+            | {{ displayError() }}
+
+        .form-group
+          label(for="name") Name
+          input#name.form-control(
+            type="text"
+            formControlName="name"
+            placeholder="Joe Doe"
+            '[ngClass]'="{ 'is-invalid': form.controls.name.touched && form.controls.name.invalid }"
+          )
+        .form-group
+          label(for="email") Email address
+          input#email.form-control(
+            type="email"
+            formControlName="email"
+            placeholder="joe@example.com"
+            '[ngClass]'="{ 'is-invalid': form.controls.email.touched && form.controls.email.invalid }"
+          )
+          small.form-text.text-muted We'll never share your email with anyone else.
+        .form-group
+          label(for="password") Password
+          input#password.form-control(
+            type="password"
+            formControlName="password"
+            placeholder="******"
+            '[ngClass]'="{ 'is-invalid': form.controls.password.touched && form.controls.password.invalid }"
+          )
+          small.form-text.text-muted Minimum of 6 characters.
+        button.btn.btn-primary(type="submit" '[disabled]'="form.invalid") Submit
+        p
+          | Have an account? 
+          a('[routerLink]'="['/login']") Login
+    .col-md-8

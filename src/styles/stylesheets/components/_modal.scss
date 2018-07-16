@@ -1,0 +1,26 @@
+.no-backdrop {
+  opacity: 0 !important;
+}
+
+.suite-modal {
+  .modal-content {
+    // border: 1px solid #000;
+  }
+
+  .modal-header {
+    .modal-title {
+      color: $gold;
+      font-weight: 300;
+      text-align: center;
+      width: 100%;
+    }
+
+    .close {
+      font-size: 0.5rem;
+    }
+  }
+
+  .modal-footer {
+    justify-content: center;
+  }
+}

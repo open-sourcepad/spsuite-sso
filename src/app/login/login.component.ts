@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SessionService, UserService } from '../services/api';
 import { EmailValidator } from '../validators';
 import { environment } from '../../environments/environment'
-import { LocalStorage } from '../services/util'
+import { LocalStorage } from '../services/utils'
 
 import * as moment from 'moment';
 declare const gapi: any;
@@ -149,7 +149,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     user.start_date = moment(user.birthday).format('MMDDYYYY');
     return user
   }
-  
+
   processLogin(){
     let currentUser:any = this.session.getCurrentUser();
 
@@ -200,7 +200,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       }
       debugger
       res.data.attributes['id'] = res.data.id
-      this.session.setSession(res.data.attributes); 
+      this.session.setSession(res.data.attributes);
 
       // this.session.setSession(res.user);
       if(this.routeParams.url != null){
@@ -223,6 +223,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     if(this.routeParams.url != null){
       this.redirectUser(routeParams);
     }
-    
+
   }
 }

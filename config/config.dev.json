@@ -1,0 +1,10 @@
+{
+  "api_base": "https://api.spsuite.co/",
+  "login_url": "login",
+  "default_http_content_type": "application/json",
+  "default_http_header_authorization_key": "Authorization",
+  "default_session_key": "application/json",
+  "AccessToken": "psefVMy7tzKK_vMya6P4pFYHn4EA_FTy1-aYxus6X6c",
+  "SsoToken": "EkyCXyNwiNCMjYHTe7UF8ixpyKronUqna3-LN3n8ofA",
+  "UserId": "827eb377-00df-4e36-ac4c-6bd6851aee4b"
+}

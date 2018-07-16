@@ -1,0 +1,85 @@
+nav(aria-label='breadcrumb')
+  ol.breadcrumb
+    li.breadcrumb-item
+      a('[routerLink]'="['/']") Home
+    li.breadcrumb-item
+      a UI Elements
+    li.breadcrumb-item.active(aria-current='page') Modal
+
+.card
+  .card-body
+    h1.card-title Modal
+    button.btn.btn-primary.mb-3((click)='openSPSuiteModal(content)') Customized for SP Suite
+    br
+    button.btn.btn-primary.mb-3((click)='openBasic(content)') Basic Modal
+    br
+    button.btn.btn-primary.mb-3((click)='openBasic(other)') Other Modal
+    br
+    button.btn.btn-primary.mb-3((click)='openSm(content)') Small modal
+    br
+    button.btn.btn-primary.mb-3((click)='openLg(content)') Large modal
+    br
+    button.btn.btn-primary.mb-3((click)='openVerticallyCentered(content)') Modal vertically centered
+
+
+//- first modal
+ng-template(#content='', let-c='close', let-d='dismiss')
+  form
+    .modal-header
+      h4.modal-title Modal title
+      button.close(type='button', aria-label='Close', (click)="d('Cross click')")
+        span(aria-hidden='true').ti-close
+    .modal-body
+      .form-row
+        .form-group.col-md-6
+          label(for='inputEmail4') Email
+          input#inputEmail4.form-control(type='email', placeholder='Email')
+        .form-group.col-md-6
+          label(for='inputPassword4') Password
+          input#inputPassword4.form-control(type='password', placeholder='Password')
+      .form-group
+        label(for='inputAddress') Address
+        input#inputAddress.form-control(type='text', placeholder='1234 Main St')
+      .form-group
+        label(for='inputAddress2') Address 2
+        input#inputAddress2.form-control(type='text', placeholder='Apartment, studio, or floor')
+      .form-row
+        .form-group.col-md-6
+          label(for='inputCity') City
+          input#inputCity.form-control(type='text')
+        .form-group.col-md-4
+          label(for='inputState') State
+          select#inputState.form-control
+            option(selected='') Choose...
+            option ...
+        .form-group.col-md-2
+          label(for='inputZip') Zip
+          input#inputZip.form-control(type='text')
+      .form-row
+        .form-group.col-md-12
+          .input-group
+            input.form-control(placeholder='yyyy-mm-dd', name='dp', ngbDatepicker='', #d='ngbDatepicker')
+            .input-group-append
+              button.btn.btn-outline-secondary((click)='d.toggle()', type='button')
+                span.ti-calendar
+
+      .form-group
+        .form-check
+          input#gridCheck.form-check-input(type='checkbox')
+          label.form-check-label(for='gridCheck')
+            | Check me out
+
+    .modal-footer
+      button.btn.btn-suite(type='button', (click)="c('Close click')") Save
+      button.btn.btn-dark(type='button', (click)="c('Close click')") Close
+
+//- another modal
+ng-template(#other='', let-c='close', let-d='dismiss')
+  .modal-header
+    h4.modal-title Other Modal title
+    button.close(type='button', aria-label='Close', (click)="d('Cross click')")
+      span(aria-hidden='true').ti-close
+  .modal-body
+    p Lorem ipsum...
+  .modal-footer
+    button.btn.btn-light(type='button', (click)="c('Close click')") Close

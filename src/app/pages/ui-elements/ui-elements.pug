@@ -1,0 +1,23 @@
+
+.row
+  .col-md-2
+    .card
+      .card-body
+        ul.nav.flex-column
+          li.navbar-item
+            a.navbar-link('[routerLink]'="['/ui-elements/buttons']" 'routerLinkActive'="active" '[routerLinkActiveOptions]'="{exact: true}") Buttons
+          li.navbar-item
+            a.navbar-link('[routerLink]'="['/ui-elements/forms']" 'routerLinkActive'="active" '[routerLinkActiveOptions]'="{exact: true}") Forms
+          li.navbar-item
+            a.navbar-link('[routerLink]'="['/ui-elements/modal']" 'routerLinkActive'="active" '[routerLinkActiveOptions]'="{exact: true}") Modal
+          li.navbar-item
+            a.navbar-link('[routerLink]'="['/ui-elements/typography']" 'routerLinkActive'="active" '[routerLinkActiveOptions]'="{exact: true}") Typography
+          li.navbar-item
+            a.navbar-link('[routerLink]'="['/ui-elements/table']" 'routerLinkActive'="active" '[routerLinkActiveOptions]'="{exact: true}") Table
+          li.navbar-item
+            a.navbar-link('[routerLink]'="['/ui-elements/swal']" 'routerLinkActive'="active" '[routerLinkActiveOptions]'="{exact: true}") Swal
+          li.navbar-item
+            a.navbar-link('[routerLink]'="['/ui-elements/icons']" 'routerLinkActive'="active" '[routerLinkActiveOptions]'="{exact: true}") Icons
+ 
+  .col-md-10
+    router-outlet

@@ -1,0 +1,177 @@
+.row.text-white.font-size-16.mb-4
+  .col-md-6
+    | Hello 
+    span.text-gold User
+    | , welcome to your dashboard!
+    span.font-size-30 &nbsp;
+  .col-md-6.text-right
+    | MNL 
+    span.font-size-30 {{ localTime }}
+    strong.font-size-30 | 
+    | EST 
+    span.font-size-30 {{ timeInEST }}
+
+.row.no-gutters
+  //- 1st column - PT
+  .col-md-5
+    .card.card-full-height.mr.mb
+      .card-body
+        h4.card-title.text-uppercase Focus for the Day
+        hr
+        .project-list
+          .project.mb-3(*ngFor="let x of [1,2]")
+            h1.text-gold Blockchain
+            ul.list-unstyled.ml-3
+              li(*ngFor="let i of [1,2,3,4,5,6,7,8,9,10]")
+                p
+                  i.ti-star.mr-3
+                  | User shall be able to do step {{ i }}
+
+  //- 2rd column - Worklogs, Events and SP Coins
+  .col-md-4
+    .card.mlr.mb.card-worklog
+      .card-body
+        h4.card-title.text-uppercase You are currently working on
+        hr
+        .font-size-30.text-gold.text-center 00:11:11
+        p.text-center
+          strong SourcePad: 
+          span Fixing recurring bug
+        .row
+          .col-md-4
+            | Today: 
+            strong.text-gold 06h36m
+          .col-md-4
+            | Week: 
+            strong.text-gold 06h36m
+          .col-md-4
+            | Month: 
+            strong.text-gold 06h36m
+
+    .row.no-gutters
+      .col-md-6
+        .card.m.mb.card-quad
+          .card-body.company-events-body
+            h4.card-title Company Events
+            hr
+            .company-event-container
+              div(*ngFor="let event of companyEvents")
+                strong {{ event.data.attributes.formatted_date }}
+                br
+                p
+                  span &nbsp;&nbsp;&nbsp;
+                    i.ti-star(*ngIf="event.data.attributes.event_name == 'Holiday'")
+                    i.ti-wand(*ngIf="event.data.attributes.event_name == 'Others'")
+                    i.ti-hand-open(*ngIf="event.data.attributes.event_name == 'Meetup/Conference'")
+                  strong &nbsp;{{ event.data.attributes.name }}
+
+      .col-md-6
+        .m
+          button.btn.btn-suite.btn-block.btn-no-margin((click)='openModal(leave)')
+            i.ti-plus
+            | REQUESTS
+        .card.bg-light.text-center.m.card-leave
+          .card-body
+            .text-uppercase.font-size-15.bold Leave Balance
+            .no-mrg-top.font-size-55.text-gold.bold {{ leaveBalance }}
+            span DAYS
+    .row.no-gutters
+      .col-md-6
+        .card.m.card-quad
+            .card-body.employee-events-body
+              h4.card-title Employee Events
+              hr
+              .employee-event-container
+                div(*ngFor="let event of employeeEvents")
+                  p(*ngIf="event.data.attributes.event_name != 'Birthday'")
+                    strong {{ event.data.attributes.user }} 
+                    |  {{ getEventText(event.data.attributes) }}
+                  p(*ngIf="event.data.attributes.event_name == 'Birthday'")
+                    strong Happy Birthday {{ event.data.attributes.user }}!
+      .col-md-6
+        .card.bg-light.text-center.m.card-quad
+          .card-body
+            .text-uppercase.font-size-15 SP Coins
+            .no-mrg-top.font-size-70.text-gold 20
+            span as of 03/03/2001
+
+  //- 3rd column - Shout-out/CIT
+  .col-md-3
+    .card.card-full-height.ml.mb
+      .card-body.commendations-body
+        h4.card-title Shout-out / CIT Board
+        hr
+        .commendations-container
+          table.table.table-striped.table-dark
+            tbody
+              tr(*ngFor="let commendation of commendations")
+                td
+                  .mb-1
+                    strong.text-gold {{ commendation.attributes.is_cit ? 'CIT' : 'Shout-out' }} 
+                    | {{ commendation.attributes.is_cit ? 'for' : 'to' }}  
+                    strong.text-uppercase {{ commendation.attributes.to_employee }} 
+                    | from 
+                    strong {{ commendation.attributes.from_employee }}
+                  div {{ commendation.attributes.message }}
+                  small {{ commendation.attributes.date }}
+      .m2
+        button.btn.btn-suite.btn-block.btn-no-margin((click)='openModal(cit, \'cit\')')
+          i.ti-speaker
+          | GIVE A SHOUT-OUT
+
+
+
+//- leave modal
+ng-template(#leave='', let-c='close', let-d='dismiss')
+  form(
+    '[formGroup]'="leaveForm"
+    '(ngSubmit)'="submitLeave(leaveForm.value)"
+  )
+    .modal-header
+      h4.modal-title.text-uppercase REQUESTS
+      button.close(type='button', aria-label='Close', (click)="c('Cross click')")
+        span(aria-hidden='true').ti-close
+    .modal-body
+      .form-group
+        label EVENT:
+        select#inputType.form-control(formControlName="type")
+          option(*ngFor="let event of eventTypes", [ngValue]="event") {{ event.data.attributes.name }}
+
+      .form-group
+        label DATE:
+        ngbd-datepicker-range((selectDate)="selectDate($event)")
+
+      .form-group
+        label(for='inputReason') REASON:
+        textarea#inputReason.form-control(type='text', placeholder='Not feeling well :(', formControlName="reason", '[ngClass]'="{ 'is-invalid': leaveForm.controls.reason.touched && leaveForm.controls.reason.invalid }")
+    .modal-footer
+      button.btn.btn-suite(type='submit') Save
+      button.btn.btn-dark(type='button', (click)="c('Close click')") Close
+
+//- CIT modal
+ng-template(#cit='', let-c='close', let-d='dismiss')
+  form(
+    '[formGroup]'="citForm"
+    '(ngSubmit)'="submitCIT(citForm.value)"
+  )
+    .modal-header
+      h4.modal-title.text-uppercase Shout-out/CIT
+      button.close(type='button', aria-label='Close', (click)="c('Cross click')")
+        span(aria-hidden='true').ti-close
+    .modal-body
+      .form-group
+        label(for='inputType') TYPE:
+        select#inputType.form-control(formControlName="type")
+          option(value="cit") CIT
+          option(value="shoutout") Shout-out
+      .form-group
+        label(for='inputTo') TO:
+        select#inputTo.form-control(formControlName="to")
+          option(*ngFor="let user of userList", [ngValue]="user") {{ user.attributes.display_name }}
+      .form-group
+        label(for='inputMessage') MESSAGE:
+        textarea#inputMessage.form-control(type='text', placeholder='Weekend warrior!', formControlName="message", '[ngClass]'="{ 'is-invalid': citForm.controls.message.touched && citForm.controls.message.invalid }")
+        
+    .modal-footer
+      button.btn.btn-suite(type='submit') Save
+      button.btn.btn-dark(type='button', (click)="c('Close click')") Close

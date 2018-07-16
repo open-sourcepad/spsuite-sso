@@ -1,0 +1,16 @@
+nav(aria-label='breadcrumb')
+  ol.breadcrumb
+    li.breadcrumb-item
+      a('[routerLink]'="['/']") Home
+    li.breadcrumb-item
+      a UI Elements
+    li.breadcrumb-item.active(aria-current='page') Swal
+
+.card
+  .card-body
+    h1.card-title Swal
+
+    button.mr-2.btn.btn-primary(
+      type='button'
+      '(click)'='askQuestion()'
+    ) Fire!
