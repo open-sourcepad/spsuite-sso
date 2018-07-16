@@ -1,0 +1,19 @@
+#project-details.container-fluid
+  .row
+    .col-md-6
+      h1.font-bold Welcome to the 
+        span.text-gold {{ projectInfo.name }}
+        | &nbsp;dashboard!
+    #clock-timezone.col-md-6
+      span.font-bold.font-size-16 MNL&nbsp;&nbsp;
+      | {{ timezone.manila }}
+      | &nbsp;&nbsp;|&nbsp;&nbsp;
+      span.font-bold.font-size-16 EST&nbsp;&nbsp;
+      | {{ timezone.eastern }}
+  .row
+    .col-sm-12.col-md-3
+      app-project-overview([projectInfo]="projectInfo")
+    .col-sm-12.col-md-5
+      project-chart
+    .col-sm-12.col-md-4
+      app-project-stories

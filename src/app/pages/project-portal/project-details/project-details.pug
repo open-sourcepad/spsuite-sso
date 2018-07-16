@@ -1,0 +1,97 @@
+.card.m.mb.border-rad-0('*ngIf'="!!currentProject && !!currentProject['slug']")
+  .card-body.project-bg
+    .row.no-gutter
+      .col-md-12
+        .row
+          .col-md-3.card-full-height
+            .row
+              .col-md-12
+                h1.bold.fleft.text-dark Project Status
+            .row.project-details-bg
+              //- .col-md-12
+              //-   h1.bold.yellow-text {{ currentProject['name'] }}
+              .col-md-12
+                h3.bold.yellow-text.fs-16
+                  | {{ currentProject['name'] | uppercase }}
+                  i.settings-link.ti-settings.cursor-pointer('(click)'="edit()")
+              .col-md-12
+                .bold.text-dark Start Date
+                .text-dark {{ currentProject.start_date | amDateFormat:'LL' }}
+              .col-md-12
+                .bold.text-dark Live Date
+                .text-dark {{ currentProject.go_live_date | amDateFormat:'LL' }}
+
+              .col-md-12
+                table
+                  thead
+                    tr
+                      th
+                        .bold.text-dark Team
+                      th
+                  tbody
+                    tr('*ngFor'="let member of currentProject['project_users']")
+                      td Dev
+                      td {{ member['data']['attributes']['name'] }}
+
+              .col-md-12
+                .row
+                  .col-md-9
+                    .bold.text-dark IN DEVELOPMENT 
+                  .col-md-3
+                    | {{ currentProject.stories_count?.in_development }}
+              .col-md-12
+                .row
+                  .col-md-9
+                    .bold.text-dark FOR QA TESTING 
+                  .col-md-3
+                    | {{ currentProject.stories_count?.qa_testing}}
+              .col-md-12
+                .row
+                  .col-md-9
+                    .bold.text-dark UAT 
+                  .col-md-3
+                    | {{ currentProject.stories_count?.uat }}
+              .col-md-12
+                .row
+                  .col-md-9
+                    .bold.text-dark COMPLETED 
+                  .col-md-3
+                    | {{ currentProject.stories_count?.completed }}
+              .col-md-12 
+                .row
+                  .col-md-9
+                    .bold.text-dark ICEBOX 
+                  .col-md-3
+                    | {{ currentProject.stories_count?.icebox }}
+
+          .col-md-9('*ngIf'="currentProject.stories_count")
+            .row.no-gutter
+              .col-md-12
+                h3.bold.yellow-text OVERALL PROGRESS
+                h5.text-center('*ngIf'="currentProject['stories_count']['completed'] == 0 && currentProject['stories_count']['total'] == 0") 
+                  | asdsd
+                  | 0%
+                h5.text-center('*ngIf'="currentProject['stories_count']['completed'] != 0 && currentProject['stories_count']['total'] != 0") 
+                  | sdsads
+                  | {{ (currentProject['stories_count']['completed'] / currentProject['stories_count']['total']) * 100 | number: '1.0-0' }}%
+                progress(max="100" value="{{ (currentProject['stories_count']['completed'] / currentProject['stories_count']['total']) * 100 | number: '1.0-0' }}")
+                  div('pseudo'="-webkit-progress-inner-element")
+                    div('pseudo'="-webkit-progress-bar")
+                      div('pseudo'="-webkit-progress-value")
+
+              .col-md-12('*ngIf'="!!stories")
+                .stories-full-height
+                  .stories-content
+                    .row.no-gutter.mr-top-10
+                      .col-md-4.text-ellips.mr-b-15.mr-t-15(*ngFor="let story of stories")
+                        .card.full-card
+                          .card-body.m.mr.pad-10
+                            h1.fs-14.bold.detail-title.text-gold {{ story['attributes']['name'] }}
+                            p.story-detail.fs-12 {{ story['attributes']['description'] }}
+
+                .row
+                  .col-md-12
+                    pagination
+                
+                  
+add-project([projModal]="projModal")

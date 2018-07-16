@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpService } from '../util/http.service';
-import { CommonService } from '../util/common.service';
-import { LocalStorage } from '../util/localStorage.service';
+import { HttpService } from '../utils/http.service';
+import { CommonService } from '../utils/common.service';
+import { LocalStorage } from '../utils/local-storage.service';
 import { Subject }    from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { BehaviorSubject } from 'rxjs';
+import { BaseService } from './base.service';
+import { User } from '../../models';
+
 
 @Injectable()
 export class SessionService {
   private apiEndpoint = `${environment.api_url}/api`;
+  public ssoEndpoint = `${APP_CONFIG["api_url"]}/api`;
+  public currentUser = new BehaviorSubject<User>(new User());
 
   user:any = null;
   UserSource = new Subject<any>();
@@ -63,7 +69,18 @@ export class SessionService {
     return !!this.getCurrentUser();
   }
 
+  verifySsoToken(payload: any){
+    return this.http.post(`${this.ssoEndpoint}/sso/validate_token`, payload , true);
+  }
 
+  refreshSsoToken(){
+    return this.http.get(`${this.ssoEndpoint}/sso/show`);
+  }
 
-
+  initUser() {
+    let user = this.currentUser.getValue();
+    if (!user.email) {
+      this.currentUser.next(this.getCurrentUser());
+    }
+  }
 }

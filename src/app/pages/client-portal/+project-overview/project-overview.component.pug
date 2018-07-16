@@ -1,0 +1,25 @@
+.card(*ngIf="!!projectInfo")
+  .card-body
+    div
+      .text-center
+        h4.font-bold.text-default Project Overview
+        h4.card-title.font-bold.text-gold.text-uppercase {{ projectInfo.name }}
+      .row
+        label.col-5.font-bold Start Date
+        .col-7.text-right {{ projectInfo.start_date }}
+      .row
+        label.col-5.font-bold Live Date
+        .col-7.text-right {{ projectInfo.live_date }}
+      .row
+        label.col-3.font-bold Team
+        .col-9
+          .row(*ngFor="let member of projectInfo.team")
+            .col-4 {{ member.role }}
+            .col-8 {{ member.name }}
+      br
+    hr
+    div
+      h4.font-bold Features
+      .row(*ngFor="let feature of projectInfo.features")
+        .col-6.font-bold.font-size-16.feature-align {{ feature.name }}
+        .col-6.text-right.font-bold.text-gold.font-size-24 {{ feature.completion }}%

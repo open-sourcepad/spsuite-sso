@@ -1,0 +1,41 @@
+.row.no-gutters
+  .col-md-12.m
+    button.mr-2.btn.btn-suite.btn-tip(type='button') PROJECT STATUS
+
+    button.mr-2.btn.btn-outline.btn-tip(type='button') QA BOARD
+
+  .col-md-3
+    .card.border-rad-0.m.mb
+      .card-body
+        .row.side-panel.card-full-height.no-gutters
+          .col-md-12
+            h1.bold.fleft.text-dark
+              | Projects
+            .add-project-container
+              button.btn.btn-sm.btn-suite.btn-tip.btn-i(type='button' '(click)'="addProject()")
+                i.ti-plus
+
+          .col-md-12.scroll-max-height
+            div('*ngFor'="let project of projects")
+              a.mrb-4.fs-16('[routerLink]'="['/project-portal/' + project['id']]")
+                | {{ project['attributes']['name'] }}
+
+          //- .col-md-12
+        .side-panel-footer
+          input(
+            type="checkbox"
+            id="projectStatus"
+            name="projectStatus" 
+            style="display:none"
+            '(change)'="toggleProjectTypes($event)"
+          )
+          label.block(
+            for="projectStatus"
+          ) {{ archivedLabel }}
+
+
+  .col-md-9
+    router-outlet
+
+add-project([projModal]="projModal" '(submit)'="submitProject($event)")
+ngx-toasta

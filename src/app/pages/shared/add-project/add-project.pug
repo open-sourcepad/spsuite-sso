@@ -1,0 +1,109 @@
+.container-fluid
+  ng-template(#content='', let-c='close', let-d='dismiss')
+    form('[formGroup]'="form" '(ngSubmit)'="onSubmit(form.value)")
+      .modal-header
+        h4.modal-title Project Details
+        button.close(type='button', aria-label='Close', (click)="handleClose()")
+          span(aria-hidden='true').ti-close
+      .modal-body
+        .form-row
+          .form-group.col-md-4
+            .row
+              .col-md-12
+                .form-group
+                  label Project Name
+                  input.form-control(type='text', placeholder='Enter Project Name' '[formControl]'="form.controls.name")
+              .col-md-12
+                .form-group
+                  label PT Project ID
+                  input.form-control(type='text', placeholder='Enter Project ID from Pivotal Tracker' '[formControl]'="form.controls.pivotal_tracker_id")
+              .col-md-12
+                label Type
+                .form-group
+                  .radio-inline
+                    input(type="radio" '[formControl]'="form.controls.project_type" value="client" checked)
+                    label &nbsp; Client
+                  .radio-inline
+                    input(type="radio" '[formControl]'="form.controls.project_type" value="product")
+                    label &nbsp; Product
+                  .radio-inline
+                    input(type="radio" '[formControl]'="form.controls.project_type" value="sourcepad")
+                    label &nbsp; SourcePad
+              .col-md-12
+                label Status
+                .form-group
+                  .radio-inline
+                    input(type="radio" '[formControl]'="form.controls.is_active" value="true")
+                    label &nbsp; Active
+                  .radio-inline
+                    input(type="radio" '[formControl]'="form.controls.is_active" value="false")
+                    label &nbsp; Archived
+              .col-md-12
+                .row
+                  label.col-md-4 Project Start Date
+                  .col-md-8
+                    .input-group
+                      input.form-control(placeholder='yyyy-mm-dd', name='dp', ngbDatepicker='', #d='ngbDatepicker' '[formControl]'="form.controls.start_date")
+                      .input-group-append
+                        button.btn.btn-outline-secondary((click)='d.toggle()', type='button')
+                          span.ti-calendar
+              
+              .col-md-12
+                .row
+                  label.col-md-4 Project Live Date
+                  .col-md-8
+                    .input-group
+                      input.form-control(placeholder='yyyy-mm-dd', name='dp', ngbDatepicker='', #e='ngbDatepicker' '[formControl]'="form.controls.go_live_date")
+                      .input-group-append
+                        button.btn.btn-outline-secondary((click)='e.toggle()', type='button')
+                          span.ti-calendar
+                          
+              .col-md-12
+                .row
+                  .col-md-12
+                    .form-row
+                      .form-group
+                        button.btn.btn-suite.btn-200.btn-tip(type='submit') Save
+                        button.btn.btn-dark.btn-200.btn-tip(type='button', (click)="c('Close click')") Cancel
+                  
+          .form-group.col-md-8.member-pane
+            label Members
+            .row
+              .form-group.col-md-7
+                input.form-control(type='text', placeholder='Enter name or email address to add/invite a user to this project')           
+              .form-group.col-md-1 
+                input.form-check-input(type="checkbox")
+                label.form-check-label Client
+              .form-group.col-md-4
+                button.mr-2.btn.btn-suite.btn-200.btn-tip(type="button") Add
+            .col-md-8
+              button.mr-2.btn.btn-light.btn-bordered-suite.btn-tip(type="button" '(click)'="employeeDirectory()") Employee Directory
+              button.mr-2.btn.btn-light.btn-bordered-suite.btn-tip(type="button") Clone Members
+            .col-md-12
+              table.table.table-striped
+                tbody
+                  tr('*ngFor'="let user of assignedUsers")
+                    td {{ user.attributes.name }}
+                    td {{ user.attributes.email }}
+                    td {{ user.attributes.position }}
+                    td 
+                      button.mr-2.btn.btn-link.yellow-text Remove
+
+
+ng-template(#add_member='', let-x='close', let-y='dismiss')
+
+  .modal-header
+    h4.modal-title 
+      button.btn.btn-link.btn-sm Select All
+      button.btn.btn-suite.btn-sm.btn-tip('(click)'="addMembers()") Add Members
+    button.close(type='button', aria-label='Close', (click)="employeeModalClose()")
+      span(aria-hidden='true').ti-close
+  .modal-body
+    .form-row
+      .form-check('*ngFor'="let user of users")
+        input.form-check-input(type="checkbox", [(ngModel)]="user.checked")
+        label.form-check-label {{ user.attributes.name }}
+
+
+
+            

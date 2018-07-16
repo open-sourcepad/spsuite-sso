@@ -17,5 +17,7 @@ export class UserService {
     return this.http.get(`${this.apiEndpoint}/${payload.id}/leave_count`);
   }
 
-
+  projects() {
+    return this.http.get(`${this.apiEndpoint}/${APP_CONFIG['user_id']}/projects`);
+  }
 }

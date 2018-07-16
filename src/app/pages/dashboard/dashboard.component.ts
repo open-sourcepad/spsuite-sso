@@ -24,12 +24,12 @@ export class DashboardComponent implements OnInit {
   modalActive: any;
   minDate: any;
   leaveBalance: any;
-  
+
   commendations: Array<{}>;
   companyEvents: Array<{}>;
   employeeEvents: Array<{}>;
   eventTypes: Array<{}>;
-  
+
   //hard code userID for now. this should come from localstorage when SSO is working.
   userID: string;
 
@@ -122,7 +122,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  submitLeave(form){ 
+  submitLeave(form){
     this.leaveForm.get('reason').markAsTouched();
     var today = new Date();
     if (this.leaveForm.valid) {
@@ -166,7 +166,7 @@ export class DashboardComponent implements OnInit {
         }, err => {
           const response = err.json()
         });
-      } 
+      }
     }
     else {
       this.swalService.errorMessage('Oops!', 'Reason is required.');
@@ -174,7 +174,7 @@ export class DashboardComponent implements OnInit {
   }
 
   submitCIT(form) {
-    
+
     this.citForm.get('message').markAsTouched();
     if (this.citForm.valid) {
       var params = {
@@ -205,29 +205,29 @@ export class DashboardComponent implements OnInit {
 
   openModal(content, type) {
     if (type == 'cit') {
-      this.citForm.reset();
-      this.userService.query({}).subscribe(resp => {
-        this.userList = resp.data
-        this.citForm.get('to').setValue(this.userList[0])
-        this.citForm.get('type').setValue('cit')
-      }, err => {
-        const response = err.json()
-      })
+      // this.citForm.reset();
+      // this.userService.query().subscribe(resp => {
+      //   this.userList = resp.data
+      //   this.citForm.get('to').setValue(this.userList[0])
+      //   this.citForm.get('type').setValue('cit')
+      // }, err => {
+      //   const response = err.json()
+      // })
     }
     else {
       this.leaveForm.reset();
       this.leaveForm.get('type').setValue(this.eventTypes[0])
     }
-    
+
     this.modalActive = this.modalService.open(content, {
       backdropClass: 'no-backdrop',
       windowClass: 'suite-modal',
       centered: true,
     });
-    
+
   }
 
-  
+
 
   getTime() {
     var today = new Date();

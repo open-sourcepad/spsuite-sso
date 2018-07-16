@@ -1,0 +1,318 @@
+$cardHeight: calc(86vh - 75px);
+$cardQuad: calc((90vh - 285px)/2);
+$cardLeave: calc( ((90vh - 285px)/2) - 45.5px );
+
+.card-full-height {
+  height: $cardHeight;
+  min-height: $cardHeight;
+  margin: 0;
+}
+
+/* buttons */
+.btn-tip {
+  border-radius: 0;
+}
+
+.btn-outline {
+  border: 1px solid #cec067;
+  color: #cec067;
+  background-color: transparent;
+
+  &:hover {
+    background-color: #cec067;
+    color: white;
+  }
+}
+
+.btn-i {    
+  padding: 3px 5px 2px 5px;
+  border-radius: 4px;
+  
+  i {
+    &:before {
+      font-weight: bold;
+      font-size: 13px;
+    }
+  }
+}
+
+.add-project-container {
+  padding-top: 6px;
+  padding-left: 20px;
+  float: left;
+}
+
+.fleft {
+  float: left;
+}
+
+.bold {
+  font-weight: bold
+}
+
+.border-rad-0 {
+  border-radius: 0
+}
+
+.text-dark {
+  color: #000 !important;
+}
+
+.side-panel {
+  a {
+    padding: 2px 4px;
+    display: block;
+    font-size: 22px;
+    color: #4c4c4c;
+    -webkit-transition: all 0.2s ease-in-out;
+       -moz-transition: all 0.2s ease-in-out;
+         -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #cec067;
+      color: white !important;
+    }
+  }
+}
+.block {
+  display: block;
+}
+.full-height-prc {
+  height: 100%;
+}
+.side-panel-footer {
+  padding-top: 10px;
+  background: white;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  left: 0;
+  right: 0;
+  margin: auto;
+
+  label {
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    color: #cec067;
+  }
+}
+.yellow-text {
+  color: #cec067;
+}
+
+.min-height-76vh {
+  position: relative;
+  height: 76vh;
+}
+.project-list {
+  height: 87%;
+  overflow: scroll;
+  margin-bottom: 24px;
+}
+.no-margin-bottom {
+  margin-bottom: 0px !important;
+}
+.settings-link {
+  float: right;
+  padding: 5px 0px 0px 0px;
+}
+
+.project-bg {
+  background-color: #F6F9FA;
+}
+
+.project-details-bg {
+  background-color: #FFFFFF;
+}
+
+progress[value] {
+  width: inherit !important;
+  -webkit-appearance: none;
+   appearance: none;
+
+  width: 250px;
+  height: 20px;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: #D3D3D3;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+progress[value]::-webkit-progress-value {
+  background-image:
+	  // -webkit-linear-gradient(0deg, transparent 33%, rgba(0, 0, 0, .1) 33%, rgba(0,0, 0, .1) 66%, transparent 66%),
+	  -webkit-linear-gradient(top, rgba(206, 192, 102, .25), rgba(206, 192, 102, .25)),
+    -webkit-linear-gradient(left, #cec067, #cec067);
+    
+    border-radius: 2px; 
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.btn-200 {
+  width: 200px;
+}
+
+.btn-bordered-suite {
+  border-color: #cec067;
+  color: #cec067;
+}
+
+.member-pane {
+  padding: 0px 0px 0px 110px
+}
+
+.cursor-pointer {
+  cursor: pointer;
+  border-radius: 2px; 
+  background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.scroll-max-height {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 0px 15px 0px 15px;
+  overflow-y: scroll;
+  top: 64px;
+  bottom: 42px;
+  margin: 0;
+}
+
+.project-details-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 0px 15px 0px 15px;
+  overflow-y: scroll;
+  top: 50px;
+  bottom: 0px;
+  margin: 0;
+}
+
+// helpers
+$m: 2px;
+
+.mlr {
+  margin-left: $m;
+  margin-right: $m;
+}
+
+.ml {
+  margin-left: $m;
+}
+
+.mr {
+  margin-right: $m;
+}
+
+.mb {
+  margin-bottom: $m;
+}
+
+.mrb-4 {
+  margin-bottom: 4px;
+}
+
+.m {
+  margin: $m;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.btn-no-margin {
+  margin: 0
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fff; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #cec067; 
+}
+
+.fs-16 {
+  font-size: 16px !important;
+}
+
+.fs-12 {
+  font-size: 12px !important;
+}
+
+.fs-14 {
+  font-size: 14px !important;
+}
+
+.text-ellips {
+  height: 158px;
+  overflow: hidden;
+  /* white-space: nowrap; */
+  overflow: hidden;
+
+  .full-card {
+    height: 100%;
+  }
+}
+
+.mr-b-15 {
+  margin-bottom: 15px;
+}
+
+.mr-t-15 {
+  margin-top: 15px;
+}
+
+.story-detail {
+  display: block;
+  display: -webkit-box;
+  /* max-width: 200px; */
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.detail-title {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mr-top-10 {
+  margin-top: 10px;
+}
+
+.pad-10 {
+  padding: 10px;
+}
+
+.stories-full-height {
+  height: calc(86vh - 182px);
+  margin: 0;
+}
+
+.stories-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 0px 15px 0px 15px;
+  overflow-y: scroll;
+  top: 0px;
+  bottom: 0px;
+  margin: 0;
+}

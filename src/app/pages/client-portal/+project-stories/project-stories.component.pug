@@ -1,0 +1,15 @@
+.card
+  .card-body(*ngIf="projectStories.count == 0")
+    h4.card-title
+      .font-bold.text-center You have no features for review 
+    hr
+  .card-body(*ngIf="projectStories.count > 0")
+    h4.card-title
+      .font-bold.text-center You have features for your review 
+    hr
+    div
+      .row.ml-auto.mr-auto(*ngFor="let story of projectStories.delivered")
+        label.font-regular
+          a(href="{{ story.link }}", target="_blank") [{{ story.id }}]
+          | &nbsp; {{ story.title }}
+        
